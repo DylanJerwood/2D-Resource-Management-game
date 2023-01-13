@@ -7,7 +7,8 @@ public class buttons : MonoBehaviour
     Vector2 mousePos;
     public GameObject drill;
     bool placeDrill = false;
-    GameObject mouseFollower;
+    public GameObject mouseFollower;
+    public GameObject hidden;
 
     // Start is called before the first frame update
     void Start()
@@ -18,17 +19,33 @@ public class buttons : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Debug.Log(mousePos);
 
         if(placeDrill == true)
         {
-            mouseFollower.transform.position = mousePos;
+            Vector3 tempx = new Vector3(Mathf.Round(mousePos.x * 1.0f) * 1f,0,0);
+            Vector3 tempy = new Vector3(0,Mathf.Round(mousePos.y * 1.0f) * 1f,0);
+            mouseFollower.transform.position = tempx + tempy;
+
+            if (wrongplacement.can == true)
+            {
+                mouseFollower.GetComponent<Renderer>().material.color = new Color(0, 100, 0);
+            }
+            else
+            {
+                mouseFollower.GetComponent<Renderer>().material.color = new Color(100, 0, 0);
+            }
+        }
+        else
+        {
+            mouseFollower.transform.position = hidden.transform.position;
         }
 
-        if (Input.GetKeyDown("mouse 0") && placeDrill == true)
+        if (Input.GetKeyDown("mouse 0") && placeDrill == true && wrongplacement.can == true)
         {
-            Instantiate(drill, mousePos, Quaternion.identity);
+            Instantiate(drill, mouseFollower.transform.position, Quaternion.identity);
         }
 
         if (Input.GetKeyDown("mouse 1"))
@@ -37,9 +54,10 @@ public class buttons : MonoBehaviour
         }
     }
 
+    
+
     public void drillButon()
     {
-        Debug.Log("pressed");
         placeDrill = true;
         mouseFollower = Instantiate(drill, mousePos, Quaternion.identity);
     }
