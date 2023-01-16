@@ -15,7 +15,7 @@ public class wrongplacement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(can);
+        //Debug.Log(can);
     }
 
     void OnTriggerEnter()
