@@ -33,7 +33,7 @@ public class playerMovement : MonoBehaviour
     {
         //sets the minimum and maximum a player can zoom in or out
         float minZoom = 1f;
-        float maxZoom = 15f;
+        float maxZoom = 30f;
 
         //If the value of your scroll wheel input is above 0 you zoom in
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
