@@ -6,17 +6,18 @@ using CodeMonkey.Utils;
 
 public class GridBuildingSystem : MonoBehaviour
 {
-    [SerializeField] private List<PlacedObjectTypeSO> placedObjectTypeSOList;
-    private PlacedObjectTypeSO placedObjectTypeSO;
+    [SerializeField] public List<PlacedObjectTypeSO> placedObjectTypeSOList;
+    public PlacedObjectTypeSO placedObjectTypeSO;
 
     private Grid<GridObject> grid;
     private PlacedObjectTypeSO.Dir dir = PlacedObjectTypeSO.Dir.Down;
+    private int gridWidth = 150;
+    private int gridHeight = 150;
+    private float cellSize = 1.5f;
 
     private void Awake() {
-        int gridWidth = 10;
-        int gridHeight = 10;
-        float cellSize = 3f;
-        grid = new Grid<GridObject>(gridWidth, gridHeight, cellSize, new Vector3(0, 0, 0), (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
+
+        grid = new Grid<GridObject>(gridWidth, gridHeight, cellSize, new Vector3(-100, -100, 0), (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
 
         placedObjectTypeSO = null;
     }
@@ -53,37 +54,44 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
         public override string ToString() {
-            return x + "," + y + "/n" + placedObject;
+            return "";
         }
         
     }
 
     private void Update() {
+        
         if(Input.GetMouseButtonDown(0)) {
             grid.GetXY(UtilsClass.GetMouseWorldPosition(), out int x, out int y);
 
-            List<Vector2Int> gridPositionList = placedObjectTypeSO.GetGridPositionList(new Vector2Int(x,y), dir);
-
-            bool canBuild = true;
-            foreach (Vector2Int gridPosition in gridPositionList) {
-                if (!grid.GetGridObject(gridPosition.x, gridPosition.y).CanBuild()) {
-                    canBuild = false;
-                    break;
-                }
-            }
-
-            if (canBuild) {
-                Vector2Int rotationOffset = placedObjectTypeSO.GetRotationOffset(dir);
-                Vector3 placedObjectWorldPosition = grid.GetWorldPosition(x, y) + new Vector3(rotationOffset.x, rotationOffset.y) * grid.GetCellSize();
-
-                PlacedObject placedObject = PlacedObject.Create(placedObjectWorldPosition, new Vector2Int(x,y), dir, placedObjectTypeSO);
-                placedObject.transform.rotation = Quaternion.Euler(0, 0, -placedObjectTypeSO.GetRotationAngle(dir));
+            if (x >= 0 && y >= 0 && x < gridWidth && y < gridHeight) {
                 
+                List<Vector2Int> gridPositionList = placedObjectTypeSO.GetGridPositionList(new Vector2Int(x,y), dir);
 
-                foreach(Vector2Int gridPosition in gridPositionList) {
-                    grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(placedObject);
+                bool canBuild = true;
+                foreach (Vector2Int gridPosition in gridPositionList) {
+                    if (!grid.GetGridObject(gridPosition.x, gridPosition.y).CanBuild()) {
+                        canBuild = false;
+                        break;
+                    }
                 }
-                 
+
+                if (canBuild) {
+                    Vector2Int rotationOffset = placedObjectTypeSO.GetRotationOffset(dir);
+                    Vector3 placedObjectWorldPosition = grid.GetWorldPosition(x, y) + new Vector3(rotationOffset.x, rotationOffset.y) * grid.GetCellSize();
+
+                    PlacedObject placedObject = PlacedObject.Create(placedObjectWorldPosition, new Vector2Int(x,y), dir, placedObjectTypeSO);
+                    placedObject.transform.rotation = Quaternion.Euler(0, 0, -placedObjectTypeSO.GetRotationAngle(dir));
+                    
+
+                    foreach(Vector2Int gridPosition in gridPositionList) {
+                        grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(placedObject);
+                    }
+                    
+                }
+                else {
+                    UtilsClass.CreateWorldTextPopup("Cannot build here!", UtilsClass.GetMouseWorldPosition());
+                }
             }
             else {
                 UtilsClass.CreateWorldTextPopup("Cannot build here!", UtilsClass.GetMouseWorldPosition());
@@ -91,6 +99,10 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
         if (Input.GetMouseButtonDown(1)) {
+            placedObjectTypeSO = null;
+        }
+    
+         if (Input.GetKeyDown(KeyCode.F)) {
             GridObject gridObject = grid.GetGridObject(UtilsClass.GetMouseWorldPosition());
             PlacedObject placedObject = gridObject.GetPlacedObject();
             if(placedObject != null) {

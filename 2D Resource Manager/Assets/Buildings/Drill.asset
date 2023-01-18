@@ -15,5 +15,5 @@ MonoBehaviour:
   nameString: Drill
   prefab: {fileID: 606080209221735086, guid: 36fe0f9bf58ff87489a936aa18ec82f0, type: 3}
   visual: {fileID: 606080209221735086, guid: df6a919702f7ff041a5e2cba0b913505, type: 3}
-  width: 1
-  height: 1
+  width: 2
+  height: 2
