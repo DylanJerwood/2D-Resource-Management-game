@@ -11,9 +11,10 @@ public class GridBuildingSystem : MonoBehaviour
 
     private Grid<GridObject> grid;
     private PlacedObjectTypeSO.Dir dir = PlacedObjectTypeSO.Dir.Down;
-    private int gridWidth = 150;
-    private int gridHeight = 150;
+    private int gridWidth = 133;
+    private int gridHeight = 133;
     private float cellSize = 1.5f;
+    private GameObject placementIndicator;
 
     private void Awake() {
 
@@ -61,71 +62,76 @@ public class GridBuildingSystem : MonoBehaviour
 
     private void Update() {
         
-        if(Input.GetMouseButtonDown(0)) {
-            grid.GetXY(UtilsClass.GetMouseWorldPosition(), out int x, out int y);
+        if(placedObjectTypeSO != null) {
 
-            if (x >= 0 && y >= 0 && x < gridWidth && y < gridHeight) {
-                
-                List<Vector2Int> gridPositionList = placedObjectTypeSO.GetGridPositionList(new Vector2Int(x,y), dir);
+            if(Input.GetMouseButtonDown(0)) {
+                grid.GetXY(UtilsClass.GetMouseWorldPosition(), out int x, out int y);
 
-                bool canBuild = true;
-                foreach (Vector2Int gridPosition in gridPositionList) {
-                    if (!grid.GetGridObject(gridPosition.x, gridPosition.y).CanBuild()) {
-                        canBuild = false;
-                        break;
-                    }
-                }
-
-                if (canBuild) {
-                    Vector2Int rotationOffset = placedObjectTypeSO.GetRotationOffset(dir);
-                    Vector3 placedObjectWorldPosition = grid.GetWorldPosition(x, y) + new Vector3(rotationOffset.x, rotationOffset.y) * grid.GetCellSize();
-
-                    PlacedObject placedObject = PlacedObject.Create(placedObjectWorldPosition, new Vector2Int(x,y), dir, placedObjectTypeSO);
-                    placedObject.transform.rotation = Quaternion.Euler(0, 0, -placedObjectTypeSO.GetRotationAngle(dir));
+                if (x >= 0 && y >= 0 && x < gridWidth && y < gridHeight) {
                     
+                    List<Vector2Int> gridPositionList = placedObjectTypeSO.GetGridPositionList(new Vector2Int(x,y), dir);
 
-                    foreach(Vector2Int gridPosition in gridPositionList) {
-                        grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(placedObject);
+                    bool canBuild = true;
+                    foreach (Vector2Int gridPosition in gridPositionList) {
+                        if (!grid.GetGridObject(gridPosition.x, gridPosition.y).CanBuild()) {
+                            canBuild = false;
+                            break;
+                        }
                     }
-                    
+
+                    if (canBuild) {
+                        Vector2Int rotationOffset = placedObjectTypeSO.GetRotationOffset(dir);
+                        Vector3 placedObjectWorldPosition = grid.GetWorldPosition(x, y) + new Vector3(rotationOffset.x, rotationOffset.y) * grid.GetCellSize();
+
+                        PlacedObject placedObject = PlacedObject.Create(placedObjectWorldPosition, new Vector2Int(x,y), dir, placedObjectTypeSO);
+                        placedObject.transform.rotation = Quaternion.Euler(0, 0, -placedObjectTypeSO.GetRotationAngle(dir));
+                        
+
+                        foreach(Vector2Int gridPosition in gridPositionList) {
+                            grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(placedObject);
+                        }
+                        
+                    }
+                    else {
+                        UtilsClass.CreateWorldTextPopup("Cannot build here!", UtilsClass.GetMouseWorldPosition());
+                    }
                 }
                 else {
                     UtilsClass.CreateWorldTextPopup("Cannot build here!", UtilsClass.GetMouseWorldPosition());
                 }
             }
-            else {
-                UtilsClass.CreateWorldTextPopup("Cannot build here!", UtilsClass.GetMouseWorldPosition());
+
+            if (Input.GetMouseButtonDown(1)) {
+                placedObjectTypeSO = null;
             }
-        }
+        
+            if (Input.GetKeyDown(KeyCode.F)) {
+                GridObject gridObject = grid.GetGridObject(UtilsClass.GetMouseWorldPosition());
+                PlacedObject placedObject = gridObject.GetPlacedObject();
+                if(placedObject != null) {
+                    placedObject.DestroySelf();
 
-        if (Input.GetMouseButtonDown(1)) {
-            placedObjectTypeSO = null;
-        }
-    
-         if (Input.GetKeyDown(KeyCode.F)) {
-            GridObject gridObject = grid.GetGridObject(UtilsClass.GetMouseWorldPosition());
-            PlacedObject placedObject = gridObject.GetPlacedObject();
-            if(placedObject != null) {
-                placedObject.DestroySelf();
-
-                List<Vector2Int> gridPositionList = placedObject.GetGridPositionList();
-                
-                foreach(Vector2Int gridPosition in gridPositionList) {
-                    grid.GetGridObject(gridPosition.x, gridPosition.y).ClearPlacedObject();
+                    List<Vector2Int> gridPositionList = placedObject.GetGridPositionList();
+                    
+                    foreach(Vector2Int gridPosition in gridPositionList) {
+                        grid.GetGridObject(gridPosition.x, gridPosition.y).ClearPlacedObject();
+                    }
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.R)) {
+                dir = PlacedObjectTypeSO.GetNextDir(dir);
+                UtilsClass.CreateWorldTextPopup("" + dir, UtilsClass.GetMouseWorldPosition());
+
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.R)) {
-            dir = PlacedObjectTypeSO.GetNextDir(dir);
-            UtilsClass.CreateWorldTextPopup("" + dir, UtilsClass.GetMouseWorldPosition());
 
-        }
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) {placedObjectTypeSO = placedObjectTypeSOList[0]; }
         if (Input.GetKeyDown(KeyCode.Alpha2)) {placedObjectTypeSO = placedObjectTypeSOList[1]; }
         if (Input.GetKeyDown(KeyCode.Alpha3)) {placedObjectTypeSO = placedObjectTypeSOList[2]; }
-        //if (Input.GetKeyDown(KeyCode.Alpha4)) {placedObjectTypeSO = placedObjectTypeSOList[3]; }
+        if (Input.GetKeyDown(KeyCode.Alpha4)) {placedObjectTypeSO = placedObjectTypeSOList[3]; }
         //if (Input.GetKeyDown(KeyCode.Alpha5)) {placedObjectTypeSO = placedObjectTypeSOList[4]; }
     }
 }

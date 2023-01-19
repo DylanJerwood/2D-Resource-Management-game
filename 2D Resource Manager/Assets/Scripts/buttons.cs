@@ -26,4 +26,9 @@ public class buttons : MonoBehaviour
         gridBuildingSystem.placedObjectTypeSO = gridBuildingSystem.placedObjectTypeSOList[2];
 
     }
+        public void ConveyorButton()
+    {
+        gridBuildingSystem.placedObjectTypeSO = gridBuildingSystem.placedObjectTypeSOList[3];
+
+    }
 }

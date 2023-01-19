@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18e4659bc8d019a4791627ffe4005c58, type: 3}
+  m_Name: Conveyor
+  m_EditorClassIdentifier: 
+  nameString: Conveyor
+  prefab: {fileID: 5263545320019274427, guid: 6c387660878f4e54fb2f46f74ef04d5f, type: 3}
+  visual: {fileID: 5263545320019274427, guid: 18fe7218a7b79e54ea62b2bdf976d22c, type: 3}
+  width: 1
+  height: 1
