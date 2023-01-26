@@ -14,13 +14,15 @@ public class GridBuildingSystem : MonoBehaviour
     private int gridWidth = 133;
     private int gridHeight = 133;
     private float cellSize = 1.5f;
-    private GameObject placementIndicator;
+    public bool placingObject;
 
     private void Awake() {
 
         grid = new Grid<GridObject>(gridWidth, gridHeight, cellSize, new Vector3(-100, -100, 0), (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
 
         placedObjectTypeSO = null;
+
+        placingObject = false;
     }
 
     public class GridObject {
@@ -61,7 +63,7 @@ public class GridBuildingSystem : MonoBehaviour
     }
 
     private void Update() {
-        
+
         if(placedObjectTypeSO != null) {
 
             if(Input.GetMouseButtonDown(0)) {
@@ -103,6 +105,7 @@ public class GridBuildingSystem : MonoBehaviour
 
             if (Input.GetMouseButtonDown(1)) {
                 placedObjectTypeSO = null;
+                placingObject = false;
             }
         
             if (Input.GetKeyDown(KeyCode.F)) {
@@ -128,10 +131,16 @@ public class GridBuildingSystem : MonoBehaviour
 
 
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {placedObjectTypeSO = placedObjectTypeSOList[0]; }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) {placedObjectTypeSO = placedObjectTypeSOList[1]; }
-        if (Input.GetKeyDown(KeyCode.Alpha3)) {placedObjectTypeSO = placedObjectTypeSOList[2]; }
-        if (Input.GetKeyDown(KeyCode.Alpha4)) {placedObjectTypeSO = placedObjectTypeSOList[3]; }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {placedObjectTypeSO = placedObjectTypeSOList[0]; placingObject = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {placedObjectTypeSO = placedObjectTypeSOList[1]; placingObject = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) {placedObjectTypeSO = placedObjectTypeSOList[2]; placingObject = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha4)) {placedObjectTypeSO = placedObjectTypeSOList[3]; placingObject = true; }
         //if (Input.GetKeyDown(KeyCode.Alpha5)) {placedObjectTypeSO = placedObjectTypeSOList[4]; }
+
+        //controls the placement indicator switching from green to red if you can or cannot place the object (follows mouse)
+        if (placedObjectTypeSO != null && placingObject == true) {
+
+        }
     }
+
 }
