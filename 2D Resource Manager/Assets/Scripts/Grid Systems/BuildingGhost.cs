@@ -8,11 +8,11 @@ public class BuildingGhost : MonoBehaviour
     public GameObject GBS;
     private GridBuildingSystem gridBuildingSystem;
 
-    [SerializeField] public List<Transform> visualsList;
-    public Transform visual;
+    [SerializeField] public List<GameObject> visualsList;
+    public GameObject visual;
     public bool createPlacementIndicator;
-    private Transform indicator;
-    private Transform middleMan;
+    private GameObject indicator;
+    private GameObject middleMan;
     
 
     void Awake()
@@ -27,11 +27,9 @@ public class BuildingGhost : MonoBehaviour
             if(createPlacementIndicator == true) {
                 middleMan = Instantiate(visual, new Vector3(0, 0, 0), Quaternion.identity);
                 indicator = middleMan;
-                Destroy(middleMan);
 
                 createPlacementIndicator = false;
             }
-            indicator.position = UtilsClass.GetMouseWorldPosition();
         }
 
         if (Input.GetMouseButtonDown(1)) {
@@ -45,8 +43,17 @@ public class BuildingGhost : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[3]; createPlacementIndicator = true; }
     }
 
+    void LateUpdate() {
+        if(indicator != null) {
+            indicator.transform.position = gridBuildingSystem.GetMouseWorldSnappedPosition();
+
+            indicator.transform.rotation = Quaternion.Lerp(indicator.transform.rotation, gridBuildingSystem.GetPlacedObjectRotation(), Time.deltaTime * 15f);
+        }
+        
+    }
+
     //what do i need to happen
 
-    // i need the visuals position to move with the mouses position
-    // i need to create a visual object the can follow the mouse
+    //change rotation of indicator
+    //change colour depending on weather they can build or not
 }

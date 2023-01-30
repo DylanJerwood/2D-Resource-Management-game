@@ -137,9 +137,26 @@ public class GridBuildingSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4)) {placedObjectTypeSO = placedObjectTypeSOList[3]; placingObject = true; }
         //if (Input.GetKeyDown(KeyCode.Alpha5)) {placedObjectTypeSO = placedObjectTypeSOList[4]; }
 
-        //controls the placement indicator switching from green to red if you can or cannot place the object (follows mouse)
-        if (placedObjectTypeSO != null && placingObject == true) {
+    }
 
+    public Vector3 GetMouseWorldSnappedPosition() {
+        Vector3 mousePosition = UtilsClass.GetMouseWorldPosition();
+        grid.GetXY(mousePosition, out int x, out int y);
+
+        if (placedObjectTypeSO != null) {
+            Vector2Int rotationOffset = placedObjectTypeSO.GetRotationOffset(dir);
+            Vector3 placedObjectWorldPosition = grid.GetWorldPosition(x, y) + new Vector3(rotationOffset.x, rotationOffset.y) * grid.GetCellSize();
+            return placedObjectWorldPosition;
+        } else {
+            return mousePosition;
+        }
+    }
+
+    public Quaternion GetPlacedObjectRotation() {
+        if (placedObjectTypeSO != null) {
+            return Quaternion.Euler(0, 0, -placedObjectTypeSO.GetRotationAngle(dir));
+        } else {
+            return Quaternion.identity;
         }
     }
 
