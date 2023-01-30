@@ -70,7 +70,7 @@ public class GridBuildingSystem : MonoBehaviour
 
         //Writes string in the grid spaces
         public override string ToString() {
-            return "";
+            return null;
         }
         
     }
