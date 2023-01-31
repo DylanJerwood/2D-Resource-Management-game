@@ -61,7 +61,7 @@ public class BuildingGhost : MonoBehaviour
             //moves indicator to your mouse location thats snapped to the grid
             indicator.transform.position = gridBuildingSystem.GetMouseWorldSnappedPosition();
 
-            //When you rotate the building this also rotates the indicator so you can see
+            //When you rotate the building this also rotates the indicator
             indicator.transform.rotation = Quaternion.Lerp(indicator.transform.rotation, gridBuildingSystem.GetPlacedObjectRotation(), Time.deltaTime * 15f);
         }
         

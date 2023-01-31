@@ -23,7 +23,7 @@ public class GridBuildingSystem : MonoBehaviour
 
     private void Awake() {
 
-        //On awake this creates the gird using the public class GridObject
+        //On awake this creates the gird using the public class Grid with Generic
         grid = new Grid<GridObject>(gridWidth, gridHeight, cellSize, new Vector3(-100, -100, 0), (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
 
         //readies variables
@@ -31,7 +31,7 @@ public class GridBuildingSystem : MonoBehaviour
         placingObject = false;
     }
 
-    //Stores information and subroutines for grid functions 
+    
     public class GridObject {
 
         private Grid<GridObject> grid;
@@ -88,7 +88,7 @@ public class GridBuildingSystem : MonoBehaviour
                 //checks the player has pressed in the bounds of the grid
                 if (x >= 0 && y >= 0 && x < gridWidth && y < gridHeight) {
                     
-                    //Grabs the position for every place one the list
+                    //Grabs the position for every cell the building will take up
                     List<Vector2Int> gridPositionList = placedObjectTypeSO.GetGridPositionList(new Vector2Int(x,y), dir);
 
                     //checks if the player can build there
