@@ -14,7 +14,7 @@ public class buttons : MonoBehaviour
 
     private int menuNum;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         gridBuildingSystem = GBS.GetComponent<GridBuildingSystem>();
