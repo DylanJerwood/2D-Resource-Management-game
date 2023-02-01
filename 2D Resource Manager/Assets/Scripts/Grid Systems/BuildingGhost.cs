@@ -15,7 +15,7 @@ public class BuildingGhost : MonoBehaviour
     //Variables
     public GameObject visual;
     public bool createPlacementIndicator;
-    private GameObject indicator;
+    public GameObject indicator;
     private GameObject middleMan;
     
     //Start Script
