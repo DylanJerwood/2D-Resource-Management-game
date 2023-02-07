@@ -41,7 +41,7 @@ public class Conveyor : MonoBehaviour
     //Gets position of where item needs to go on the next belt
     public Vector3 GetItemPosition() {
         var position = itemPostion.transform.position;
-        return new Vector3(position.x, position.y, position.x);
+        return new Vector3(position.x, position.y, position.z);
     }
 
     //visually moves the item
