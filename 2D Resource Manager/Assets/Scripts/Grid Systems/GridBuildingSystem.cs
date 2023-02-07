@@ -14,9 +14,9 @@ public class GridBuildingSystem : MonoBehaviour
     //variables to set up grid
     private Grid<GridObject> grid;
     private PlacedObjectTypeSO.Dir dir = PlacedObjectTypeSO.Dir.Down;
-    private int gridWidth = 133;
-    private int gridHeight = 133;
-    private float cellSize = 1.5f;
+    private int gridWidth = 200;
+    private int gridHeight = 200;
+    private float cellSize = 1f;
 
     //variable to check if the player is currently placing a building
     public bool placingObject;
@@ -70,7 +70,10 @@ public class GridBuildingSystem : MonoBehaviour
 
         //Writes string in the grid spaces
         public override string ToString() {
-            return null;
+            //return null;
+            //return x + ", " + y + "\n" + placedObject;
+            return "\n" + placedObject;
+            //return x + ", " + y;
         }
         
     }
