@@ -361,7 +361,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7931631774232347372}
-  - component: {fileID: 3375667130152206486}
+  - component: {fileID: 4088972676940700313}
   m_Layer: 0
   m_Name: overlapBox
   m_TagString: Untagged
@@ -384,7 +384,7 @@ Transform:
   m_Father: {fileID: 606080209221735086}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3375667130152206486
+--- !u!212 &4088972676940700313
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
