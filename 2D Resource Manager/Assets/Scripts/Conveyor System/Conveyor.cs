@@ -36,6 +36,10 @@ public class Conveyor : MonoBehaviour
         if(conveyorItem != null && conveyorItem.item != null) {
             StartCoroutine(StartConveyorMove());
         }
+
+        if(conveyorItem != null && conveyorItem.item != null) {
+            Deposit();
+        }
     }
 
     //Gets position of where item needs to go on the next belt
@@ -82,12 +86,22 @@ public class Conveyor : MonoBehaviour
             if(conveyor != null) {
                 return conveyor;
             }
-            else {
-                return null;
+        }
+        return null;
+    }
+
+    private void Deposit() {
+        Vector2 origin = new Vector2(raycastOrigin.transform.position.x, raycastOrigin.transform.position.y);
+
+        RaycastHit2D hit = Physics2D.Raycast(origin, transform.TransformDirection(Vector2.down), 1f); 
+
+        if(hit) {
+            Turret turret = hit.collider.GetComponent<Turret>();
+
+            if(turret != null && turret.ammoCount < turret.maxAmmo) {
+                turret.ammoCount = turret.ammoCount + 1;
             }
         }
-        else{
-            return null;
-        }
+        return;
     }
 }

@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class DrillScript : MonoBehaviour
 {
+    //String that changes between each drill to use as a check for which one its on
     public string drillType;
+    //GameObjects used for the OverlapBox feature
     public GameObject origin;
     public GameObject box;
-    public Conveyor[] conveyorList;
-    public Conveyor conveyor;
+    //Variables used for storing the conveyors around the drill
+    private Conveyor[] conveyorList;
+    private Conveyor conveyor;
+    //variables used for the item the drill is giving out
     public ConveyorItem drillItem;
     private ConveyorItem item;
     private GameObject itemPosition;
     private Vector3 position;
+    //variables used for loops and checks
     private int i = 0;
     private bool freeSpace = false;
-
+    //variables to manage time
     private float nextItemDelivery = 0.0f;
-    public float drillSpeed = 0.5f;
-
-    private void Start() {
-        conveyorList = GetConveyorList();
-    }
+    public float drillSpeed;
 
     private void Update() {
         //gathers List of all the conveyors in a square around the drill
@@ -39,6 +40,7 @@ public class DrillScript : MonoBehaviour
                 conveyor = conveyorList[i];
             }
 
+            freeSpace = false;
             //Checks if there is a conveyor in the spot and if it already has an item on it...
             if(conveyor != null && conveyor.isSpaceTaken == false && conveyor.conveyorItem == null) {
                 freeSpace = true; //...If so then it is a freee space
@@ -95,10 +97,10 @@ public class DrillScript : MonoBehaviour
             listOfConveyors = new Conveyor[20];
         }
         //OverlapBox command returns an intager with the numver of colliders in the box, and populates a list called listOfConveyorsColliders with those colliders
-        int numOfConveyors = Physics2D.OverlapBox(origin.transform.position, boxScale, 0f, contactFilter, listOfConveyorsColliders);
+        Physics2D.OverlapBox(origin.transform.position, boxScale, 0f, contactFilter, listOfConveyorsColliders);
 
         //it then converts the clist of colliders into a new list of GameObjects so i can use them for other tasks
-        foreach(var col in listOfConveyorsColliders) {
+        foreach(Collider2D col in listOfConveyorsColliders) {
             if(col) {
                 listOfConveyors[i] = col.GetComponent<Collider2D>().GetComponent<Conveyor>();
             }

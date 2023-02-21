@@ -348,10 +348,8 @@ MonoBehaviour:
   drillType: drill
   origin: {fileID: 6740309580073074183}
   box: {fileID: 7597553219598436340}
-  conveyorList: []
-  conveyor: {fileID: 0}
   drillItem: {fileID: 1161016830299058789, guid: 6ac8e361958981147acff081e66fe832, type: 3}
-  drillSpeed: 0.5
+  drillSpeed: 1.5
 --- !u!1 &7597553219598436340
 GameObject:
   m_ObjectHideFlags: 0

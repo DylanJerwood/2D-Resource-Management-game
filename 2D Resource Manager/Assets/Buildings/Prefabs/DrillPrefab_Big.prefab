@@ -432,7 +432,5 @@ MonoBehaviour:
   drillType: bigDrill
   origin: {fileID: 4350220087869739918}
   box: {fileID: 159341885553484516}
-  conveyorList: []
-  conveyor: {fileID: 0}
   drillItem: {fileID: 1161016830299058789, guid: 6ac8e361958981147acff081e66fe832, type: 3}
   drillSpeed: 0.5
