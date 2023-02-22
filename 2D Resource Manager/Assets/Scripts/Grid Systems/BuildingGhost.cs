@@ -52,6 +52,7 @@ public class BuildingGhost : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[1]; createPlacementIndicator = true; }
         if (Input.GetKeyDown(KeyCode.Alpha3)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[2]; createPlacementIndicator = true; }
         if (Input.GetKeyDown(KeyCode.Alpha4)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[3]; createPlacementIndicator = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha5)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[4]; createPlacementIndicator = true; }
     }
 
     //indicator movement

@@ -12,10 +12,9 @@ public class Conveyor : MonoBehaviour
     public GameObject raycastOrigin;
     public GameObject itemPostion;
 
-    private ConveyorManager conveyorManager;
+    public float speed; 
 
     private void Start() {
-        conveyorManager = FindObjectOfType<ConveyorManager>();
         conveyorInSequence = null;
         conveyorInSequence = FindNextConveyor();
         gameObject.name = $"Conveyor: {conveyorID++}";
@@ -35,14 +34,11 @@ public class Conveyor : MonoBehaviour
 
         if(conveyorItem != null && conveyorItem.item != null) {
             StartCoroutine(StartConveyorMove());
-        }
-
-        if(conveyorItem != null && conveyorItem.item != null) {
             Deposit();
         }
     }
 
-    //Gets position of where item needs to go on the next belt
+    //Gets position of the next conveyor/where the item needs to go next
     public Vector3 GetItemPosition() {
         var position = itemPostion.transform.position;
         return new Vector3(position.x, position.y, position.z);
@@ -57,7 +53,7 @@ public class Conveyor : MonoBehaviour
 
             conveyorInSequence.isSpaceTaken = true;
 
-            var step = conveyorManager.speed * Time.deltaTime;
+            var step = speed * Time.deltaTime;
 
             while(conveyorItem.item.transform.position != toPosition) {
                 conveyorItem.transform.position = Vector3.MoveTowards(conveyorItem.transform.position, toPosition, step);
@@ -93,15 +89,18 @@ public class Conveyor : MonoBehaviour
     private void Deposit() {
         Vector2 origin = new Vector2(raycastOrigin.transform.position.x, raycastOrigin.transform.position.y);
 
-        RaycastHit2D hit = Physics2D.Raycast(origin, transform.TransformDirection(Vector2.down), 1f); 
+        RaycastHit2D hit = Physics2D.Raycast(origin, transform.TransformDirection(Vector2.down), 1f);
 
         if(hit) {
             Turret turret = hit.collider.GetComponent<Turret>();
 
             if(turret != null && turret.ammoCount < turret.maxAmmo) {
                 turret.ammoCount = turret.ammoCount + 1;
+                isSpaceTaken = false;
+                Destroy(conveyorItem.gameObject);
+                conveyorItem = null;
             }
         }
-        return;
+        
     }
 }

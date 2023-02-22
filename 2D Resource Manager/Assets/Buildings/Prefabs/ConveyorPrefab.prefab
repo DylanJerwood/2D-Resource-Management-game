@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 635353757396120499}
   - component: {fileID: 4347873082380973967}
   m_Layer: 0
-  m_Name: Conveyor
+  m_Name: ConveyorPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -320,6 +320,7 @@ MonoBehaviour:
   isSpaceTaken: 0
   raycastOrigin: {fileID: 1155312865408736183}
   itemPostion: {fileID: 5803544988087288647}
+  speed: 7
 --- !u!61 &635353757396120499
 BoxCollider2D:
   m_ObjectHideFlags: 0
