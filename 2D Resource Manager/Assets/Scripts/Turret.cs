@@ -7,46 +7,56 @@ public class Turret : MonoBehaviour
     public int maxAmmo;
     public int ammoCount;
 
-    public GameObject origin;
-    public GameObject circle;
+    public Transform target;
+    public Transform origin;
+    public float range = 8f;
 
-    public GameObject fireTarget;
+    public string enemyTag = "Enemy";
+
+    public Transform partToRotate;
+    public float turnSpeed = 10f;
+
+    private void Start() {
+        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+    }
 
     private void Update() {
-        fireTarget = SearchForEnemy();
-
-        if(ammoCount < 1) {
-
+        if(target == null) {
+            return;
         }
 
+        LockOnTarget();
     }
 
-    private GameObject SearchForEnemy() {
-    
-        //Debug.Log("Gets Called");
-        List<Collider2D> listOfEnemyColliders = new List<Collider2D>();
-        GameObject enemy = null;
-        //Variables for the OverlapCircle function
-        float circleScale = 100f;
-        ContactFilter2D contactFilter = new ContactFilter2D();
+    void UpdateTarget() {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        float shortestDistance = Mathf.Infinity;
+        GameObject nearestEnemy = null;
 
-        int i = 0;
-
-        Physics2D.OverlapCircle(origin.transform.position, circleScale, contactFilter, listOfEnemyColliders);
-        
-        foreach(Collider2D col in listOfEnemyColliders) {
-           // Debug.Log("Foreach works");
-            if(col) {
-                
-                enemy = col.GetComponent<Collider2D>().GetComponent<GameObject>();
-                return enemy;
+        foreach(GameObject enemy in enemies){
+            float distanceToEnemy = Vector3.Distance(origin.position, enemy.transform.position);
+            if (distanceToEnemy < shortestDistance) {
+                shortestDistance = distanceToEnemy;
+                nearestEnemy = enemy;
             }
-            i++;
         }
-        return enemy;
+        if(nearestEnemy != null && shortestDistance <= range) {
+            target = nearestEnemy.transform;
+        }
+        else{
+            target = null;
+        }
     }
 
-    private void Fire() {
+    private void LockOnTarget() {
+		Vector3 dir = target.position - origin.position;
+		Quaternion lookRotation = Quaternion.LookRotation(dir);
+		Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
+		partToRotate.rotation = Quaternion.Euler(0f, 0f, rotation.z);
+    }
 
+    void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(origin.position, range);
     }
 }
