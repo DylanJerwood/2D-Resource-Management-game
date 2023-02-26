@@ -5,11 +5,15 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private Transform target;
+    private float damage;
+    private Enemy target_script;
 
     public float speed = 70f;
 
-    public void Seek(Transform _target) {
+    public void Seek(Transform _target, float bulletDamage) {
         target = _target;
+        damage =  bulletDamage;
+        target_script = target.GetComponent<Enemy>();
     }
 
     // Update is called once per frame
@@ -23,7 +27,7 @@ public class Bullet : MonoBehaviour
         float distancePerFrame = speed * Time.deltaTime;
 
         if(dir.magnitude <= distancePerFrame) {
-            HitTarget();
+            HitTarget(damage);
             return;
         }
 
@@ -31,9 +35,9 @@ public class Bullet : MonoBehaviour
 
     }
 
-    void HitTarget() {
+    void HitTarget(float bulletDamage) {
         
-        Destroy(target.gameObject);
+        target_script.health = target_script.health - bulletDamage;
         Destroy(gameObject);
     }
 }

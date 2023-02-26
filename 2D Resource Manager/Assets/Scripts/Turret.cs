@@ -12,6 +12,7 @@ public class Turret : MonoBehaviour
     public int maxAmmo;
     public int ammoCount;
     public float turnSpeed = 10f;
+    public float bulletDamage = 25f;
 
     [Header("Script Requirements")]
 
@@ -55,7 +56,7 @@ public class Turret : MonoBehaviour
         Bullet bullet = bulletFired.GetComponent<Bullet>();
 
         if(bullet != null) {
-            bullet.Seek(target);
+            bullet.Seek(target, bulletDamage);
         }
     }
 
