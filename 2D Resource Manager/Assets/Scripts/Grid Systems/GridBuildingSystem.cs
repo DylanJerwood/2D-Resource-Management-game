@@ -24,7 +24,7 @@ public class GridBuildingSystem : MonoBehaviour
     private void Awake() {
 
         //On awake this creates the gird using the public class Grid with Generic
-        grid = new Grid<GridObject>(gridWidth, gridHeight, cellSize, new Vector3(-100, -100, 0), (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
+        grid = new Grid<GridObject>(gridWidth, gridHeight, cellSize, new Vector3(-100, -100, 0), (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y), false);
 
         //readies variables
         placedObjectTypeSO = null;
