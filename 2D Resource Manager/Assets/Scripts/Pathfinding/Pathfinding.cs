@@ -7,11 +7,14 @@ public class Pathfinding {
     private const int MOVE_STRAIGHT_COST = 10;
     private const int MOVE_DIAGONAL_COST = 14;
 
+    public static Pathfinding Instance { get; private set; }
+
     private Grid<PathNode> grid;
     private List<PathNode> openList;
     private List<PathNode> closedList;
 
     public Pathfinding(int width, int height) {
+        Instance = this;
         grid = new Grid<PathNode>(width, height, 1f, new Vector3(-100, -100, 0), (Grid<PathNode> g, int x, int y) => new PathNode(g, x, y), true);
     }
 
@@ -29,7 +32,7 @@ public class Pathfinding {
         } else {
             List<Vector3> vectorPath = new List<Vector3>();
             foreach (PathNode pathNode in path) {
-                vectorPath.Add(new Vector3(pathNode.x, pathNode.y) * grid.GetCellSize() + Vector3.one * grid.GetCellSize() * .5f);
+                vectorPath.Add(new Vector3(pathNode.x, pathNode.y) * grid.GetCellSize() + new Vector3(-199, -199, 0) * grid.GetCellSize() * .5f);
             }
             return vectorPath;
         }
@@ -59,6 +62,7 @@ public class Pathfinding {
         startNode.gCost = 0;
         startNode.hCost = CalculateDistanceCost(startNode, endNode);
         startNode.CalculateFCost();
+
 
         while (openList.Count > 0) {
             PathNode currentNode = GetLowestFCostNode(openList);
