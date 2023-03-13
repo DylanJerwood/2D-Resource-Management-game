@@ -30,8 +30,10 @@ public class Testing : MonoBehaviour
             Vector3 mouseWorldPosition = UtilsClass.GetMouseWorldPosition();
             pathfinding.GetGrid().GetXY(mouseWorldPosition, out int x, out int y);
             pathfinding.GetNode(x,y).SetIsWalkable(!pathfinding.GetNode(x,y).isWalkable);
+            pathfinding.GetNode(x,y).SetIsBreakable(!pathfinding.GetNode(x,y).isBreakable);
+            Vector3 gridPos = pathfinding.GetGrid().GetWorldPosition(x,y); gridPos.x = gridPos.x + 0.5f; gridPos.y = gridPos.y + 0.5f;
 
-            Instantiate(nonWalkableVisual, mouseWorldPosition, Quaternion.identity);
+            Instantiate(nonWalkableVisual, gridPos, Quaternion.identity);
         }
     }
 

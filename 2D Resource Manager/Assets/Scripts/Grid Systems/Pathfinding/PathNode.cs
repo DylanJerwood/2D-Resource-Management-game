@@ -13,6 +13,7 @@ public class PathNode {
     public int fCost;
 
     public bool isWalkable;
+    public bool isBreakable;
     public PathNode cameFromNode;
 
     public PathNode(Grid<PathNode> grid, int x, int y) {
@@ -20,11 +21,13 @@ public class PathNode {
         this.x = x;
         this.y = y;
         isWalkable = true;
+        isBreakable = false;
     }
 
     public override string ToString() {
         //return  x + "," + y;
-        return "\n";
+        //return "\n";
+        return fCost.ToString();
     }
 
     public void CalculateFCost() {
@@ -33,6 +36,11 @@ public class PathNode {
 
     public void SetIsWalkable(bool isWalkable) {
         this.isWalkable = isWalkable;
+        grid.TriggerGridObjectChanged(x,y);
+    }
+
+    public void SetIsBreakable(bool isBreakable) {
+        this.isBreakable = isBreakable;
         grid.TriggerGridObjectChanged(x,y);
     }
 }

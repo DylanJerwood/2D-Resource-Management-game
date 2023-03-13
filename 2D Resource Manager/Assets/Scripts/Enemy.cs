@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
 {   
     
     public float health = 100f;
+    public float attackSpeed = 1f;
+    private float attackCountDown = 0f;
     private const float speed = 10f;
 
     private int currentPathIndex;
@@ -28,7 +30,7 @@ public class Enemy : MonoBehaviour
     private void HandleMovement() {
         if (pathVectorList != null) {
             Vector3 targetPosition = pathVectorList[currentPathIndex];
-            if (Vector3.Distance(transform.position, targetPosition) > 1f) {
+            if (Vector3.Distance(transform.position, targetPosition) > 0.01f) {
                 Vector3 moveDir = (targetPosition - transform.position).normalized;
 
                 float distanceBefore = Vector3.Distance(transform.position, targetPosition);
