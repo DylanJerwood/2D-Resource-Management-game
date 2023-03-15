@@ -5,7 +5,7 @@ using UnityEngine;
 public class WallScript : MonoBehaviour
 {
     private Testing testscript;
-    public int health = 100;
+    public float health = 100;
 
     private void Awake() {
         testscript = GameObject.Find("TestObject").GetComponent<Testing>();

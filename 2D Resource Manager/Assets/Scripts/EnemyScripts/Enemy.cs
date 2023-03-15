@@ -7,8 +7,6 @@ public class Enemy : MonoBehaviour
 {   
     
     public float health = 100f;
-    public float attackSpeed = 1f;
-    private float attackCountDown = 0f;
     private const float speed = 3f;
 
     private int currentPathIndex;
