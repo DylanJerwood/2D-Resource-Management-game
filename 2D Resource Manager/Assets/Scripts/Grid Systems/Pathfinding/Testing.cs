@@ -6,9 +6,11 @@ using CodeMonkey;
 
 public class Testing : MonoBehaviour
 {
-    private Pathfinding pathfinding;
+    public Pathfinding pathfinding;
 
     public GameObject nonWalkableVisual;
+
+    private GameObject wall;
 
     private void Start() {
        pathfinding = new Pathfinding(50,50); 
@@ -29,11 +31,19 @@ public class Testing : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E)) {
             Vector3 mouseWorldPosition = UtilsClass.GetMouseWorldPosition();
             pathfinding.GetGrid().GetXY(mouseWorldPosition, out int x, out int y);
-            pathfinding.GetNode(x,y).SetIsWalkable(!pathfinding.GetNode(x,y).isWalkable);
-            pathfinding.GetNode(x,y).SetIsBreakable(!pathfinding.GetNode(x,y).isBreakable);
+            pathfinding.GetNode(x,y).SetIsWalkable(false);
+            pathfinding.GetNode(x,y).SetIsBreakable(true);
             Vector3 gridPos = pathfinding.GetGrid().GetWorldPosition(x,y); gridPos.x = gridPos.x + 0.5f; gridPos.y = gridPos.y + 0.5f;
 
-            Instantiate(nonWalkableVisual, gridPos, Quaternion.identity);
+            wall = Instantiate(nonWalkableVisual, gridPos, Quaternion.identity);
+        }
+        if(Input.GetKeyDown(KeyCode.F)) {
+            Vector3 mouseWorldPosition = UtilsClass.GetMouseWorldPosition();
+            pathfinding.GetGrid().GetXY(mouseWorldPosition, out int x, out int y);
+            pathfinding.GetNode(x,y).SetIsWalkable(true);
+            pathfinding.GetNode(x,y).SetIsBreakable(false);
+
+            Destroy(wall);
         }
     }
 

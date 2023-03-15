@@ -9,10 +9,12 @@ public class Enemy : MonoBehaviour
     public float health = 100f;
     public float attackSpeed = 1f;
     private float attackCountDown = 0f;
-    private const float speed = 10f;
+    private const float speed = 3f;
 
     private int currentPathIndex;
     private List<Vector3> pathVectorList;
+
+    public bool setPath = true;
     
     private void Update() {
         //chacks if its health is less than or equal to zero if it is destroys the enemy
@@ -21,7 +23,11 @@ public class Enemy : MonoBehaviour
         }
 
         HandleMovement();
-
+        if(setPath == true) {
+            SetTargetPosition(new Vector3(-51, -51, 0));
+            setPath = false;
+        }
+        
         if (Input.GetMouseButtonDown(2)) {
             SetTargetPosition(UtilsClass.GetMouseWorldPosition());
         }
@@ -55,6 +61,7 @@ public class Enemy : MonoBehaviour
 
     public void SetTargetPosition(Vector3 targetPosition) {
         currentPathIndex = 0;
+        pathVectorList = null;
         pathVectorList = Pathfinding.Instance.FindPath(GetPosition(), targetPosition);
 
         if (pathVectorList != null && pathVectorList.Count > 1) {

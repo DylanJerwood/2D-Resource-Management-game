@@ -26,8 +26,8 @@ public class PathNode {
 
     public override string ToString() {
         //return  x + "," + y;
-        //return "\n";
-        return fCost.ToString();
+        return "\n";
+        //return fCost.ToString();
     }
 
     public void CalculateFCost() {
