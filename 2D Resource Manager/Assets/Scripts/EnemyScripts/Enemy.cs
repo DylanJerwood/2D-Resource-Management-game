@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
 
         HandleMovement();
         if(setPath == true) {
-            SetTargetPosition(new Vector3(-51, -51, 0));
+            SetTargetPosition(new Vector3(0, 0, 0));
             setPath = false;
         }
         

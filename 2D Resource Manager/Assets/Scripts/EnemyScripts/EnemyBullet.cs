@@ -7,7 +7,7 @@ public class EnemyBullet : MonoBehaviour
     //Variables needed for logic
     private Transform target;
     private float damage;
-    private WallScript target_script;
+    private BuildingHealth target_script;
     //variable to change speed at which bullet travels
     public float speed = 70f;
 
@@ -15,7 +15,7 @@ public class EnemyBullet : MonoBehaviour
     public void Seek(Transform _target, float bulletDamage) {
         target = _target;
         damage =  bulletDamage;
-        target_script = target.GetComponent<WallScript>();
+        target_script = target.GetComponent<BuildingHealth>();
     }
 
     void Update(){

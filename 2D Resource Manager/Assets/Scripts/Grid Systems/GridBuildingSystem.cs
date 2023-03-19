@@ -21,6 +21,9 @@ public class GridBuildingSystem : MonoBehaviour
     //variable to check if the player is currently placing a building
     public bool placingObject;
 
+    //variable for changing the pathfinding of enemies
+    private PathfindingManager pathfindingManager;
+
     private void Awake() {
 
         //On awake this creates the gird using the public class Grid with Generic
@@ -29,6 +32,9 @@ public class GridBuildingSystem : MonoBehaviour
         //readies variables
         placedObjectTypeSO = null;
         placingObject = false;
+
+        //Finds the script for the enemies pathfinding
+        pathfindingManager = GameObject.Find("Pathfinding Manager").GetComponent<PathfindingManager>();
     }
 
     
@@ -119,9 +125,11 @@ public class GridBuildingSystem : MonoBehaviour
                         //Changes the value of the grid to placed object
                         foreach(Vector2Int gridPosition in gridPositionList) {
                             grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(placedObject);
+                            pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsWalkable(false);
+                            pathfindingManager.pathfinding.GetNode(x,y).SetIsBreakable(true);
                         }
-                    //If player cant build creates text to tell them    
                     }
+                    //If player cant build creates text to tell them 
                     else {
                         UtilsClass.CreateWorldTextPopup("Cannot build here!", UtilsClass.GetMouseWorldPosition());
                     }
@@ -169,7 +177,8 @@ public class GridBuildingSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2)) {placedObjectTypeSO = placedObjectTypeSOList[1]; placingObject = true; }
         if (Input.GetKeyDown(KeyCode.Alpha3)) {placedObjectTypeSO = placedObjectTypeSOList[2]; placingObject = true; }
         if (Input.GetKeyDown(KeyCode.Alpha4)) {placedObjectTypeSO = placedObjectTypeSOList[3]; placingObject = true; }
-        if (Input.GetKeyDown(KeyCode.Alpha5)) {placedObjectTypeSO = placedObjectTypeSOList[4]; placingObject = true;}
+        if (Input.GetKeyDown(KeyCode.Alpha5)) {placedObjectTypeSO = placedObjectTypeSOList[4]; placingObject = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha6)) {placedObjectTypeSO = placedObjectTypeSOList[5]; placingObject = true; }
 
     }
 
@@ -198,4 +207,18 @@ public class GridBuildingSystem : MonoBehaviour
         }
     }
 
+    public void ObjectDestroyed(Vector3 objectPosition) {
+        GridObject gridObject = grid.GetGridObject(objectPosition);
+        PlacedObject placedObject = gridObject.GetPlacedObject();
+        
+        placedObject.DestroySelf();
+
+        List<Vector2Int> gridPositionList = placedObject.GetGridPositionList();
+
+        foreach(Vector2Int gridPosition in gridPositionList) {
+            grid.GetGridObject(gridPosition.x, gridPosition.y).ClearPlacedObject();
+            pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsWalkable(true);
+            pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsBreakable(false);
+        }
+    }
 }

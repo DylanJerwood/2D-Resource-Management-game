@@ -296,9 +296,10 @@ GameObject:
   - component: {fileID: 606080209221735086}
   - component: {fileID: -8229455208989793932}
   - component: {fileID: 8871629681024626832}
+  - component: {fileID: 5567943650025462423}
   m_Layer: 0
   m_Name: DrillPrefab
-  m_TagString: Untagged
+  m_TagString: BuiltObjects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -350,6 +351,19 @@ MonoBehaviour:
   box: {fileID: 7597553219598436340}
   drillItem: {fileID: 1161016830299058789, guid: 6ac8e361958981147acff081e66fe832, type: 3}
   drillSpeed: 1.5
+--- !u!114 &5567943650025462423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7283464335605817862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba51d188ccec72b4689e4e075f3eddf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1 &7597553219598436340
 GameObject:
   m_ObjectHideFlags: 0
