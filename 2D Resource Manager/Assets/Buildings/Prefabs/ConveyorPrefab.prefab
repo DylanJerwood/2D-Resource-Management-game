@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 1570703513074238445}
   - component: {fileID: 635353757396120499}
   - component: {fileID: 4347873082380973967}
+  - component: {fileID: -8215268704849909999}
   m_Layer: 0
   m_Name: ConveyorPrefab
   m_TagString: BuiltObjects
@@ -368,6 +369,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &-8215268704849909999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5263545320019274426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba51d188ccec72b4689e4e075f3eddf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1 &5654575705044946193
 GameObject:
   m_ObjectHideFlags: 0

@@ -126,8 +126,9 @@ public class GridBuildingSystem : MonoBehaviour
                         foreach(Vector2Int gridPosition in gridPositionList) {
                             grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(placedObject);
                             pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsWalkable(false);
-                            pathfindingManager.pathfinding.GetNode(x,y).SetIsBreakable(true);
+                            pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsBreakable(true);
                         }
+                        pathfindingManager.setPath = true;
                     }
                     //If player cant build creates text to tell them 
                     else {
@@ -219,6 +220,18 @@ public class GridBuildingSystem : MonoBehaviour
             grid.GetGridObject(gridPosition.x, gridPosition.y).ClearPlacedObject();
             pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsWalkable(true);
             pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsBreakable(false);
+        }
+    }
+
+    public void PlaceObjectOnAwake(PlacedObjectTypeSO objectToPlace, Vector3 positionToPlace) {
+        grid.GetXY(positionToPlace, out int x, out int y);
+        PlacedObject placedObject = PlacedObject.Create(positionToPlace, new Vector2Int(x,y), dir, objectToPlace);
+        List<Vector2Int> gridPositionList = placedObject.GetGridPositionList();
+        
+        foreach(Vector2Int gridPosition in gridPositionList) {
+            grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(placedObject);
+            pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsWalkable(false);
+            pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsBreakable(true);
         }
     }
 }
