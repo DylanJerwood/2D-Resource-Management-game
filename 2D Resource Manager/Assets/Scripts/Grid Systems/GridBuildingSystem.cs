@@ -12,7 +12,7 @@ public class GridBuildingSystem : MonoBehaviour
     public PlacedObjectTypeSO placedObjectTypeSO;
 
     //variables to set up grid
-    private Grid<GridObject> grid;
+    public Grid<GridObject> grid;
     private PlacedObjectTypeSO.Dir dir = PlacedObjectTypeSO.Dir.Down;
     private int gridWidth = 200;
     private int gridHeight = 200;
@@ -93,6 +93,8 @@ public class GridBuildingSystem : MonoBehaviour
             if(Input.GetMouseButtonDown(0)) {
                 //Converts mouse position to an X and Y variable
                 grid.GetXY(UtilsClass.GetMouseWorldPosition(), out int x, out int y);
+                GameObject[] enemyGameObjects;
+                enemyGameObjects = GameObject.FindGameObjectsWithTag("Enemy");
 
                 //checks the player has pressed in the bounds of the grid
                 if (x >= 0 && y >= 0 && x < gridWidth && y < gridHeight) {
@@ -107,6 +109,14 @@ public class GridBuildingSystem : MonoBehaviour
                         if (!grid.GetGridObject(gridPosition.x, gridPosition.y).CanBuild()) {
                             canBuild = false;
                             break;
+                        }
+                    }
+                    foreach (Vector2Int gridPosition in gridPositionList) {
+                        foreach(GameObject enemy in enemyGameObjects) {
+                            if (grid.GetGridObject(gridPosition.x, gridPosition.y) == grid.GetGridObject(new Vector3(enemy.transform.position.x, enemy.transform.position.y, enemy.transform.position.z))) {
+                                canBuild = false;
+                                break;
+                            }
                         }
                     }
 
@@ -169,8 +179,12 @@ public class GridBuildingSystem : MonoBehaviour
     
                 foreach(Vector2Int gridPosition in gridPositionList) {
                     grid.GetGridObject(gridPosition.x, gridPosition.y).ClearPlacedObject();
+                    pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsWalkable(true);
+                    pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsBreakable(false);
                 }
             }
+            pathfindingManager.setPath = true;
+
         }
 
         //Player can slect which building to use by pressing 1-4
@@ -224,6 +238,7 @@ public class GridBuildingSystem : MonoBehaviour
     }
 
     public void PlaceObjectOnAwake(PlacedObjectTypeSO objectToPlace, Vector3 positionToPlace) {
+        StartCoroutine(WaitCoroutine(0.5f));
         grid.GetXY(positionToPlace, out int x, out int y);
         PlacedObject placedObject = PlacedObject.Create(positionToPlace, new Vector2Int(x,y), dir, objectToPlace);
         List<Vector2Int> gridPositionList = placedObject.GetGridPositionList();
@@ -233,5 +248,10 @@ public class GridBuildingSystem : MonoBehaviour
             pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsWalkable(false);
             pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsBreakable(true);
         }
+    }
+
+    IEnumerator WaitCoroutine(float timeToWait)
+    {
+        yield return new WaitForSeconds(timeToWait);
     }
 }

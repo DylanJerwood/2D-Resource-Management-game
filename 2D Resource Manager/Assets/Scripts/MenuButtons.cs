@@ -88,6 +88,28 @@ public class MenuButtons : MonoBehaviour
         }
         
     }
+    private void WallMenuButton()
+    {
+        menuNum = 3;
+
+        gridBuildingSystem.placedObjectTypeSO = null;  
+        gridBuildingSystem.placingObject = false;
+        buildingGhost.visual = null;  
+        Destroy(buildingGhost.indicator);  
+        
+        foreach (GameObject menu in menuList) {
+            if (menu != menuList[menuNum]) {
+                menu.SetActive(false);
+            }
+        }
+        if(menuList[menuNum].activeInHierarchy) {
+            menuList[menuNum].SetActive(false);
+        }
+        else{
+            menuList[menuNum].SetActive(true);
+        }
+        
+    }
     private void DrillButon()
     {
         gridBuildingSystem.placedObjectTypeSO = gridBuildingSystem.placedObjectTypeSOList[0];  
@@ -131,6 +153,15 @@ public class MenuButtons : MonoBehaviour
         buildingGhost.visual = null;  
         Destroy(buildingGhost.indicator);  
         buildingGhost.visual = buildingGhost.visualsList[4];  
+        buildingGhost.createPlacementIndicator = true;
+    }
+    private void WallButton()
+    {
+        gridBuildingSystem.placedObjectTypeSO = gridBuildingSystem.placedObjectTypeSOList[5];  
+        gridBuildingSystem.placingObject = true;
+        buildingGhost.visual = null;  
+        Destroy(buildingGhost.indicator);  
+        buildingGhost.visual = buildingGhost.visualsList[5];  
         buildingGhost.createPlacementIndicator = true;
     }
 }

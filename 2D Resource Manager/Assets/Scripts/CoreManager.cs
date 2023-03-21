@@ -10,13 +10,10 @@ public class CoreManager : MonoBehaviour{
 
     private void Start() {
         gridBuildingSystem = GameObject.Find("GridBuildingSystem").GetComponent<GridBuildingSystem>();
-        
+        gridBuildingSystem.PlaceObjectOnAwake(core, new Vector3(-1,-1,0));
     }
 
     private void Update() {
-        if(placeCore == true) {
-            gridBuildingSystem.PlaceObjectOnAwake(core, new Vector3(-1,-1,0));
-            placeCore = false;         
-        }
+        
     }
 }

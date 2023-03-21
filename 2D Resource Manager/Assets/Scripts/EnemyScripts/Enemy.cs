@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     private List<Vector3> pathVectorList;
 
     public bool setPath = true;
-    
+
     private void Update() {
         //chacks if its health is less than or equal to zero if it is destroys the enemy
         if (health  <= 0f) {

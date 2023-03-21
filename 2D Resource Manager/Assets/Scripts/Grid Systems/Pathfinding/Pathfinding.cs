@@ -140,22 +140,24 @@ public class Pathfinding {
         }
         bool wallNodeFound = false; path.Reverse();
         for (int i = 0; i < path.Count; i++) {
-            if(!path[i].isWalkable && path[i].isBreakable) {
+            if(path[i].isBreakable) {
                 Debug.Log("Found Wall");
+                path.Remove(endNode);
                 endNode = path[i];
                 wallNodeFound = true;
+                break;
             }
-            if(wallNodeFound == true) {
-                path = new List<PathNode>();
-                path.Add(endNode);
-                currentNode = endNode;
-                while (currentNode.cameFromNode != null) {
-                    path.Add(currentNode.cameFromNode);
-                    currentNode = currentNode.cameFromNode;
-                }
-                path.Remove(endNode);
-                path.Reverse();
+        }
+        if(wallNodeFound == true) {
+            path = new List<PathNode>();
+            path.Add(endNode);
+            currentNode = endNode;
+            while (currentNode.cameFromNode != null) {
+                path.Add(currentNode.cameFromNode);
+                currentNode = currentNode.cameFromNode;
             }
+            path.Remove(endNode);
+            path.Reverse();
         }
         return path;
     }
