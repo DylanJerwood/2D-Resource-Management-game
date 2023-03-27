@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5785569983559651652}
   - component: {fileID: 1161016830299058789}
   m_Layer: 0
-  m_Name: Conveyor Item
+  m_Name: Iron
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

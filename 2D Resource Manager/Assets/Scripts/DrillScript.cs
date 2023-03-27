@@ -83,7 +83,7 @@ public class DrillScript : MonoBehaviour
         Collider2D[] listOfConveyorsColliders = new Collider2D[12];
         Conveyor[] listOfConveyors = new Conveyor[12];
         //Variables for the OverlapBox function
-        Vector2 boxScale = box.transform.localScale / 2;
+        float boxScale = box.transform.localScale.magnitude;
         ContactFilter2D contactFilter = new ContactFilter2D();
 
         int i=0;
@@ -97,7 +97,7 @@ public class DrillScript : MonoBehaviour
             listOfConveyors = new Conveyor[20];
         }
         //OverlapBox command returns an intager with the numver of colliders in the box, and populates a list called listOfConveyorsColliders with those colliders
-        Physics2D.OverlapBox(origin.transform.position, boxScale, 0f, contactFilter, listOfConveyorsColliders);
+        Physics2D.OverlapCircle(origin.transform.position, boxScale, contactFilter, listOfConveyorsColliders);
 
         //it then converts the clist of colliders into a new list of GameObjects so i can use them for other tasks
         foreach(Collider2D col in listOfConveyorsColliders) {
@@ -109,6 +109,12 @@ public class DrillScript : MonoBehaviour
         }
 
         return listOfConveyors;
+    }
+
+    void OnDrawGizmosSelected() {
+        float boxScale = box.transform.localScale.magnitude;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(origin.transform.position, boxScale);
     }
 
 }
