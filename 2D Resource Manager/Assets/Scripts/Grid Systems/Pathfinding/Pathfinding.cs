@@ -19,7 +19,7 @@ public class Pathfinding {
         Instance = this;
         grid = new Grid<PathNode>(width, height, 1f, new Vector3(-100, -100, 0), (Grid<PathNode> g, int x, int y) => new PathNode(g, x, y), false);
     }
-    //Function to get the grid script
+    //Function to get the grid list
     public Grid<PathNode> GetGrid() {
         return grid;
     }
