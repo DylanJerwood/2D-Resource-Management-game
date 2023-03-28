@@ -85,7 +85,7 @@ public class Conveyor : MonoBehaviour
         }
         return null;
     }
-
+    //Deposit
     private void Deposit() {
         Vector2 origin = new Vector2(raycastOrigin.transform.position.x, raycastOrigin.transform.position.y);
 
@@ -96,11 +96,22 @@ public class Conveyor : MonoBehaviour
 
             if(turret != null && turret.ammoCount < turret.maxAmmo) {
                 turret.ammoCount = turret.ammoCount + 1;
-                isSpaceTaken = false;
-                Destroy(conveyorItem.gameObject);
-                conveyorItem = null;
+                ClearSpace();
             }
+
+            if(hit.collider.GetComponent<CoreScript>()) {
+                CoreScript core = hit.collider.GetComponent<CoreScript>();
+                core.IncreaseMatCount(conveyorItem.name);
+                ClearSpace();
+            }
+            
         }
         
+    }
+
+    private void ClearSpace(){
+        isSpaceTaken = false;
+        Destroy(conveyorItem.gameObject);
+        conveyorItem = null;
     }
 }

@@ -12,8 +12,6 @@ public class MenuButtons : MonoBehaviour
 
     public List<GameObject> menuList;
 
-    private int menuNum;
-
 
     private void Start()
     {
@@ -23,7 +21,7 @@ public class MenuButtons : MonoBehaviour
 
     private void DrillMenuButon()
     {
-        menuNum = 0;
+        int menuNum = 0;
 
         gridBuildingSystem.placedObjectTypeSO = null;  
         gridBuildingSystem.placingObject = false;
@@ -46,7 +44,7 @@ public class MenuButtons : MonoBehaviour
     }
     private void ConveyorMenuButton()
     {
-        menuNum = 1;
+        int menuNum = 1;
 
         gridBuildingSystem.placedObjectTypeSO = null;  
         gridBuildingSystem.placingObject = false;
@@ -68,7 +66,7 @@ public class MenuButtons : MonoBehaviour
     }
     private void TurretMenuButton()
     {
-        menuNum = 2;
+        int menuNum = 2;
 
         gridBuildingSystem.placedObjectTypeSO = null;  
         gridBuildingSystem.placingObject = false;
@@ -90,7 +88,7 @@ public class MenuButtons : MonoBehaviour
     }
     private void WallMenuButton()
     {
-        menuNum = 3;
+        int menuNum = 3;
 
         gridBuildingSystem.placedObjectTypeSO = null;  
         gridBuildingSystem.placingObject = false;
@@ -112,56 +110,52 @@ public class MenuButtons : MonoBehaviour
     }
     private void DrillButon()
     {
-        gridBuildingSystem.placedObjectTypeSO = gridBuildingSystem.placedObjectTypeSOList[0];  
+        int buttonNum = 1;
+        gridBuildingSystem.placedObjectTypeSO = gridBuildingSystem.placedObjectTypeSOList[buttonNum];  
         gridBuildingSystem.placingObject = true;
         buildingGhost.visual = null;  
         Destroy(buildingGhost.indicator);  
-        buildingGhost.visual = buildingGhost.visualsList[0];  
+        buildingGhost.visual = buildingGhost.visualsList[buttonNum];  
         buildingGhost.createPlacementIndicator = true;
     }
     private void BigdrillButon()
     {
-        gridBuildingSystem.placedObjectTypeSO = gridBuildingSystem.placedObjectTypeSOList[1];  
+        int buttonNum = 2;
+        gridBuildingSystem.placedObjectTypeSO = gridBuildingSystem.placedObjectTypeSOList[buttonNum];  
         gridBuildingSystem.placingObject = true;
         buildingGhost.visual = null;  
         Destroy(buildingGhost.indicator);  
-        buildingGhost.visual = buildingGhost.visualsList[1];  
+        buildingGhost.visual = buildingGhost.visualsList[buttonNum];  
         buildingGhost.createPlacementIndicator = true;
     }    
-    public void LongdrillButon()
-    {
-        gridBuildingSystem.placedObjectTypeSO = gridBuildingSystem.placedObjectTypeSOList[2];  
-        gridBuildingSystem.placingObject = true;
-        buildingGhost.visual = null;  
-        Destroy(buildingGhost.indicator);  
-        buildingGhost.visual = buildingGhost.visualsList[2];  
-        buildingGhost.createPlacementIndicator = true;
-    }
     private void ConveyorButton()
     {
-        gridBuildingSystem.placedObjectTypeSO = gridBuildingSystem.placedObjectTypeSOList[3];  
+        int buttonNum = 3;
+        gridBuildingSystem.placedObjectTypeSO = gridBuildingSystem.placedObjectTypeSOList[buttonNum];  
         gridBuildingSystem.placingObject = true;
         buildingGhost.visual = null;  
         Destroy(buildingGhost.indicator);  
-        buildingGhost.visual = buildingGhost.visualsList[3];  
+        buildingGhost.visual = buildingGhost.visualsList[buttonNum];  
         buildingGhost.createPlacementIndicator = true;
     }
     private void TurretButton()
     {
-        gridBuildingSystem.placedObjectTypeSO = gridBuildingSystem.placedObjectTypeSOList[4];  
+        int buttonNum = 4;
+        gridBuildingSystem.placedObjectTypeSO = gridBuildingSystem.placedObjectTypeSOList[buttonNum];  
         gridBuildingSystem.placingObject = true;
         buildingGhost.visual = null;  
         Destroy(buildingGhost.indicator);  
-        buildingGhost.visual = buildingGhost.visualsList[4];  
+        buildingGhost.visual = buildingGhost.visualsList[buttonNum];  
         buildingGhost.createPlacementIndicator = true;
     }
     private void WallButton()
     {
-        gridBuildingSystem.placedObjectTypeSO = gridBuildingSystem.placedObjectTypeSOList[5];  
+        int buttonNum = 5;
+        gridBuildingSystem.placedObjectTypeSO = gridBuildingSystem.placedObjectTypeSOList[buttonNum];  
         gridBuildingSystem.placingObject = true;
         buildingGhost.visual = null;  
         Destroy(buildingGhost.indicator);  
-        buildingGhost.visual = buildingGhost.visualsList[5];  
+        buildingGhost.visual = buildingGhost.visualsList[buttonNum];  
         buildingGhost.createPlacementIndicator = true;
     }
 }

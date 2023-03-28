@@ -48,12 +48,12 @@ public class BuildingGhost : MonoBehaviour
         }
 
         //Player selects building using 1-4    checks for already existing indicator and destroys it
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[0]; createPlacementIndicator = true; }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[1]; createPlacementIndicator = true; }
-        if (Input.GetKeyDown(KeyCode.Alpha3)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[2]; createPlacementIndicator = true; }
-        if (Input.GetKeyDown(KeyCode.Alpha4)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[3]; createPlacementIndicator = true; }
-        if (Input.GetKeyDown(KeyCode.Alpha5)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[4]; createPlacementIndicator = true; }
-        if (Input.GetKeyDown(KeyCode.Alpha6)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[5]; createPlacementIndicator = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[1]; createPlacementIndicator = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[2]; createPlacementIndicator = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[3]; createPlacementIndicator = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha4)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[4]; createPlacementIndicator = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha5)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[5]; createPlacementIndicator = true; }
+        // if (Input.GetKeyDown(KeyCode.Alpha6)) {if (indicator != null) {Destroy(indicator);} visual = visualsList[6]; createPlacementIndicator = true; }
     }
 
     //indicator movement

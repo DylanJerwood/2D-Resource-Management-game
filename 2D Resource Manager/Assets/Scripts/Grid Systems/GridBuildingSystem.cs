@@ -188,12 +188,12 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
         //Player can slect which building to use by pressing 1-4
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {placedObjectTypeSO = placedObjectTypeSOList[0]; placingObject = true; }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) {placedObjectTypeSO = placedObjectTypeSOList[1]; placingObject = true; }
-        if (Input.GetKeyDown(KeyCode.Alpha3)) {placedObjectTypeSO = placedObjectTypeSOList[2]; placingObject = true; }
-        if (Input.GetKeyDown(KeyCode.Alpha4)) {placedObjectTypeSO = placedObjectTypeSOList[3]; placingObject = true; }
-        if (Input.GetKeyDown(KeyCode.Alpha5)) {placedObjectTypeSO = placedObjectTypeSOList[4]; placingObject = true; }
-        if (Input.GetKeyDown(KeyCode.Alpha6)) {placedObjectTypeSO = placedObjectTypeSOList[5]; placingObject = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {placedObjectTypeSO = placedObjectTypeSOList[1]; placingObject = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {placedObjectTypeSO = placedObjectTypeSOList[2]; placingObject = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) {placedObjectTypeSO = placedObjectTypeSOList[3]; placingObject = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha4)) {placedObjectTypeSO = placedObjectTypeSOList[4]; placingObject = true; }
+        if (Input.GetKeyDown(KeyCode.Alpha5)) {placedObjectTypeSO = placedObjectTypeSOList[5]; placingObject = true; }
+        // if (Input.GetKeyDown(KeyCode.Alpha6)) {placedObjectTypeSO = placedObjectTypeSOList[6]; placingObject = true; }
 
     }
 
