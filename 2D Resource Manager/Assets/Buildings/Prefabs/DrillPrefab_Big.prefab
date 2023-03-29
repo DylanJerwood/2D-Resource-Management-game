@@ -366,6 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a2117e4143d7e4c95e462539cdbd4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placedObjectTypeSO: {fileID: 0}
 --- !u!114 &2990457858006340965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,8 +384,8 @@ MonoBehaviour:
   box: {fileID: 159341885553484516}
   matBox: {fileID: 7684670253224014702}
   drillItem:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1161016830299058789, guid: 6ac8e361958981147acff081e66fe832, type: 3}
+  - {fileID: 1161016830299058789, guid: 26731a6b5ffe6774bafab360678f5ed0, type: 3}
   - {fileID: 0}
   drillSpeed: 0.5
 --- !u!114 &-5356553860077061423

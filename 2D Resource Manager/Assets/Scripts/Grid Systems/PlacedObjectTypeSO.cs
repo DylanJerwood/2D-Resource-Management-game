@@ -27,6 +27,8 @@ public class PlacedObjectTypeSO : ScriptableObject {
     public Transform visual;
     public int width;
     public int height;
+    public int ironCost;
+    public int copperCost;
 
 
     public int GetRotationAngle(Dir dir) {

@@ -24,6 +24,9 @@ public class GridBuildingSystem : MonoBehaviour
     //variable for changing the pathfinding of enemies
     private PathfindingManager pathfindingManager;
 
+    //variable for material manager
+    private MaterialManager materialManager;
+
     private void Awake() {
 
         //On awake this creates the gird using the public class Grid with Generic
@@ -35,6 +38,7 @@ public class GridBuildingSystem : MonoBehaviour
 
         //Finds the script for the enemies pathfinding
         pathfindingManager = GameObject.Find("Pathfinding Manager").GetComponent<PathfindingManager>();
+        materialManager = GameObject.Find("MaterialManager").GetComponent<MaterialManager>();
     }
 
     
@@ -119,9 +123,13 @@ public class GridBuildingSystem : MonoBehaviour
                             }
                         }
                     }
+                    if(placedObjectTypeSO.ironCost > materialManager.ironCount || placedObjectTypeSO.copperCost > materialManager.copperCount){
+                        canBuild = false;
+                    }
 
                     //checks if the player can build
                     if (canBuild) {
+                        materialManager.ironCount = materialManager.ironCount - placedObjectTypeSO.ironCost; materialManager.copperCount = materialManager.copperCount - placedObjectTypeSO.copperCost;
                         //Establishes the rotation ofset you would need to place the object correctly
                         Vector2Int rotationOffset = placedObjectTypeSO.GetRotationOffset(dir);
                         //places the object in each spot it will take up
@@ -185,6 +193,8 @@ public class GridBuildingSystem : MonoBehaviour
             }
             pathfindingManager.setPath = true;
 
+            materialManager.ironCount = materialManager.ironCount + placedObject.placedObjectTypeSO.ironCost;
+            materialManager.copperCount = materialManager.copperCount + placedObject.placedObjectTypeSO.copperCost;
         }
 
         //Player can slect which building to use by pressing 1-4

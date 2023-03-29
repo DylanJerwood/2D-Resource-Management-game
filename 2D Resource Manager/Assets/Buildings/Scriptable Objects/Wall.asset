@@ -17,3 +17,5 @@ MonoBehaviour:
   visual: {fileID: 7402175556895606151, guid: 043537a26c767714b811a5fa5f8ae999, type: 3}
   width: 1
   height: 1
+  ironCost: 25
+  copperCost: 0

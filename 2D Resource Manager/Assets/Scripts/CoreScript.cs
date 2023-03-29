@@ -1,27 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CoreScript : MonoBehaviour {
 
-    public int ironCount;
-    public int copperCount;
     private GridBuildingSystem gridBuildingSystem;
+    private MaterialManager materialManager;
     
     private void Start() {
         gridBuildingSystem = GameObject.Find("GridBuildingSystem").GetComponent<GridBuildingSystem>();
+        materialManager = GameObject.Find("MaterialManager").GetComponent<MaterialManager>();
     }
 
     private void Update() {
-
+        
     }
 
     public void IncreaseMatCount(string incomeMat) {
         if(incomeMat == "Iron") {
-            ironCount = ironCount + 1;
+            materialManager.ironCount = materialManager.ironCount + 1;
         }
         else if(incomeMat == "Copper") {
-            copperCount = copperCount + 1;
+            materialManager.copperCount = materialManager.copperCount + 1;
         }
         else{
             Debug.Log("Name not recognized");
