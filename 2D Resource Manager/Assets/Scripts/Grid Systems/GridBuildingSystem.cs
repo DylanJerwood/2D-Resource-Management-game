@@ -14,8 +14,8 @@ public class GridBuildingSystem : MonoBehaviour
     //variables to set up grid
     public Grid<GridObject> grid;
     private PlacedObjectTypeSO.Dir dir = PlacedObjectTypeSO.Dir.Down;
-    private int gridWidth = 200;
-    private int gridHeight = 200;
+    private int gridWidth = 100;
+    private int gridHeight = 100;
     private float cellSize = 1f;
 
     //variable to check if the player is currently placing a building
@@ -26,6 +26,9 @@ public class GridBuildingSystem : MonoBehaviour
 
     //variable for material manager
     private MaterialManager materialManager;
+
+    //variable for UIManager
+    private UIManager UIManager_;
 
     private void Awake() {
 
@@ -39,6 +42,8 @@ public class GridBuildingSystem : MonoBehaviour
         //Finds the script for the enemies pathfinding
         pathfindingManager = GameObject.Find("Pathfinding Manager").GetComponent<PathfindingManager>();
         materialManager = GameObject.Find("MaterialManager").GetComponent<MaterialManager>();
+        UIManager_ = GameObject.Find("UIManager").GetComponent<UIManager>();
+
     }
 
     
@@ -94,7 +99,8 @@ public class GridBuildingSystem : MonoBehaviour
         if(placedObjectTypeSO != null) {
 
             //Checks if player pressed left click
-            if(Input.GetMouseButtonDown(0)) {
+            if(Input.GetMouseButtonDown(0) && !UIManager_.IsMouseOverUI()) {
+                
                 //Converts mouse position to an X and Y variable
                 grid.GetXY(UtilsClass.GetMouseWorldPosition(), out int x, out int y);
                 GameObject[] enemyGameObjects;
@@ -190,11 +196,11 @@ public class GridBuildingSystem : MonoBehaviour
                     pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsWalkable(true);
                     pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsBreakable(false);
                 }
-            }
-            pathfindingManager.setPath = true;
+                pathfindingManager.setPath = true;
 
-            materialManager.ironCount = materialManager.ironCount + placedObject.placedObjectTypeSO.ironCost;
-            materialManager.copperCount = materialManager.copperCount + placedObject.placedObjectTypeSO.copperCost;
+                materialManager.ironCount = materialManager.ironCount + placedObject.placedObjectTypeSO.ironCost;
+                materialManager.copperCount = materialManager.copperCount + placedObject.placedObjectTypeSO.copperCost;
+            }
         }
 
         //Player can slect which building to use by pressing 1-4

@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
         HandleMovement();
         //if setPath becomes true then it will recalculate a new path
         if(setPath == true) {
-            SetTargetPosition(new Vector3(0, 0, 0));
+            SetTargetPosition(new Vector3(-3, -3, 0));
             setPath = false;
         }
         //Debug tool to move the enemy objects as i see fit

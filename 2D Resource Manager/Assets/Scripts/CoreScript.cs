@@ -13,10 +13,6 @@ public class CoreScript : MonoBehaviour {
         materialManager = GameObject.Find("MaterialManager").GetComponent<MaterialManager>();
     }
 
-    private void Update() {
-        
-    }
-
     public void IncreaseMatCount(string incomeMat) {
         if(incomeMat == "Iron") {
             materialManager.ironCount = materialManager.ironCount + 1;

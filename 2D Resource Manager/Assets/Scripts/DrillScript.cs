@@ -24,11 +24,15 @@ public class DrillScript : MonoBehaviour
     private bool freeSpace = false;
     //variables to manage time
     private float nextItemDelivery = 0.0f;
-    public float drillSpeed;
+    public float timeTakenTillMine;
+    private float drillSpeed;
+
+    private void Awake() {
+        DetectMaterial();
+    }
 
     private void Update() {
-        DetectMaterial();
-
+        
         if(drillItemIndex != 20) {
             //gathers List of all the conveyors in a square around the drill
             conveyorList = GetConveyorList();
@@ -116,13 +120,12 @@ public class DrillScript : MonoBehaviour
     //detects which material to mine based on whats its atop
     private void DetectMaterial() {
 
-        Collider2D[] listOfMat = new Collider2D[4];
+        List<Collider2D> listOfMat = new List<Collider2D>();
         
         Vector2 boxScale = matBox.transform.localScale / 2;
         ContactFilter2D contactFilter = new ContactFilter2D();
 
         Physics2D.OverlapBox(origin.transform.position, boxScale, 0f, contactFilter, listOfMat);
-
         int numOfIron = 0;
         int numOfCopper = 0;
 
@@ -134,13 +137,15 @@ public class DrillScript : MonoBehaviour
                 if(col.name == "CopperVein") {
                     numOfCopper = numOfCopper + 1;
                 }
-                if(numOfCopper >= numOfIron) {
-                    drillItemIndex = 1;
-                }
-                else{
-                    drillItemIndex = 0;
-                }
             }
+        }
+        if(numOfCopper >= numOfIron) {
+            drillItemIndex = 1;
+            drillSpeed = timeTakenTillMine / numOfCopper;
+        }
+        else{
+            drillItemIndex = 0;
+            drillSpeed = timeTakenTillMine / numOfIron;
         }
     }
 

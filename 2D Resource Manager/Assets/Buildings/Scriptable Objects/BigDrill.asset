@@ -19,3 +19,4 @@ MonoBehaviour:
   height: 4
   ironCost: 75
   copperCost: 50
+  buildingImage: {fileID: 21300000, guid: d4a5125eac0372b4388c8da114f3489a, type: 3}

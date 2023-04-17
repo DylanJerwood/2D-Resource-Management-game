@@ -10,13 +10,10 @@ public class MaterialManager : MonoBehaviour {
 
     public TMP_Text ironText;
     public TMP_Text copperText;
-    
-    private void Start() {
-
-    }
 
     private void Update() {
         ironText.text = ironCount.ToString();
         copperText.text = copperCount.ToString();
     }
 }
+    

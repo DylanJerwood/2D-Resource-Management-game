@@ -10,7 +10,7 @@ public class PathfindingManager : MonoBehaviour {
 
     private void Start() {
         //Creates the grid
-       pathfinding = new Pathfinding(200,200);
+       pathfinding = new Pathfinding(100,100);
         //Tells the pathfinding agents to calculate a path
        setPath = true;
     } 

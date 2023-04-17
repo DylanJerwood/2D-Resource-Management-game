@@ -6,11 +6,12 @@ public class CoreManager : MonoBehaviour{
 
     public PlacedObjectTypeSO core;
     public bool placeCore = false;
+    public Vector3 placementLocation;
     private GridBuildingSystem gridBuildingSystem;
 
     private void Start() {
         gridBuildingSystem = GameObject.Find("GridBuildingSystem").GetComponent<GridBuildingSystem>();
-        gridBuildingSystem.PlaceObjectOnAwake(core, new Vector3(-1,-1,0));
+        gridBuildingSystem.PlaceObjectOnAwake(core, placementLocation);
     }
 
     private void Update() {

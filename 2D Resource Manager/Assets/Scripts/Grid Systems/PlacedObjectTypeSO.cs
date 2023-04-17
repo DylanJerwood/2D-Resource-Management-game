@@ -29,6 +29,7 @@ public class PlacedObjectTypeSO : ScriptableObject {
     public int height;
     public int ironCost;
     public int copperCost;
+    public Sprite buildingImage;
 
 
     public int GetRotationAngle(Dir dir) {
