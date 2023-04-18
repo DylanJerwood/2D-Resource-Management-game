@@ -121,6 +121,7 @@ public class GridBuildingSystem : MonoBehaviour
                             break;
                         }
                     }
+                    //Checks if the player is trying to build on top of an enemy
                     foreach (Vector2Int gridPosition in gridPositionList) {
                         foreach(GameObject enemy in enemyGameObjects) {
                             if (grid.GetGridObject(gridPosition.x, gridPosition.y) == grid.GetGridObject(new Vector3(enemy.transform.position.x, enemy.transform.position.y, enemy.transform.position.z))) {
@@ -129,7 +130,8 @@ public class GridBuildingSystem : MonoBehaviour
                             }
                         }
                     }
-                    if(placedObjectTypeSO.ironCost > materialManager.ironCount || placedObjectTypeSO.copperCost > materialManager.copperCount){
+                    //checks if the player has enough resources to place
+                    if(placedObjectTypeSO.ironCost >= materialManager.ironCount || placedObjectTypeSO.copperCost >= materialManager.copperCount){
                         canBuild = false;
                     }
 
