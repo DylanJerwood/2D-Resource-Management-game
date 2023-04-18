@@ -99,70 +99,71 @@ public class GridBuildingSystem : MonoBehaviour
         if(placedObjectTypeSO != null) {
 
             //Checks if player pressed left click
-            if(Input.GetMouseButtonDown(0) && !UIManager_.IsMouseOverUI()) {
-                
-                //Converts mouse position to an X and Y variable
-                grid.GetXY(UtilsClass.GetMouseWorldPosition(), out int x, out int y);
-                GameObject[] enemyGameObjects;
-                enemyGameObjects = GameObject.FindGameObjectsWithTag("Enemy");
+            if(Input.GetMouseButtonDown(0)) {
+                if(!UIManager_.IsMouseOverUI()) {
+                    //Converts mouse position to an X and Y variable
+                    grid.GetXY(UtilsClass.GetMouseWorldPosition(), out int x, out int y);
+                    GameObject[] enemyGameObjects;
+                    enemyGameObjects = GameObject.FindGameObjectsWithTag("Enemy");
 
-                //checks the player has pressed in the bounds of the grid
-                if (x >= 0 && y >= 0 && x < gridWidth && y < gridHeight) {
-                    
-                    //Grabs the position for every cell the building will take up
-                    List<Vector2Int> gridPositionList = placedObjectTypeSO.GetGridPositionList(new Vector2Int(x,y), dir);
+                    //checks the player has pressed in the bounds of the grid
+                    if (x >= 0 && y >= 0 && x < gridWidth && y < gridHeight) {
+                        
+                        //Grabs the position for every cell the building will take up
+                        List<Vector2Int> gridPositionList = placedObjectTypeSO.GetGridPositionList(new Vector2Int(x,y), dir);
 
-                    //checks if the player can build there
-                    bool canBuild = true;
-                    //For every position the object will make it so you cant build there anymore
-                    foreach (Vector2Int gridPosition in gridPositionList) {
-                        if (!grid.GetGridObject(gridPosition.x, gridPosition.y).CanBuild()) {
-                            canBuild = false;
-                            break;
-                        }
-                    }
-                    //Checks if the player is trying to build on top of an enemy
-                    foreach (Vector2Int gridPosition in gridPositionList) {
-                        foreach(GameObject enemy in enemyGameObjects) {
-                            if (grid.GetGridObject(gridPosition.x, gridPosition.y) == grid.GetGridObject(new Vector3(enemy.transform.position.x, enemy.transform.position.y, enemy.transform.position.z))) {
+                        //checks if the player can build there
+                        bool canBuild = true;
+                        //For every position the object will make it so you cant build there anymore
+                        foreach (Vector2Int gridPosition in gridPositionList) {
+                            if (!grid.GetGridObject(gridPosition.x, gridPosition.y).CanBuild()) {
                                 canBuild = false;
                                 break;
                             }
                         }
-                    }
-                    //checks if the player has enough resources to place
-                    if(placedObjectTypeSO.ironCost >= materialManager.ironCount || placedObjectTypeSO.copperCost >= materialManager.copperCount){
-                        canBuild = false;
-                    }
-
-                    //checks if the player can build
-                    if (canBuild) {
-                        materialManager.ironCount = materialManager.ironCount - placedObjectTypeSO.ironCost; materialManager.copperCount = materialManager.copperCount - placedObjectTypeSO.copperCost;
-                        //Establishes the rotation ofset you would need to place the object correctly
-                        Vector2Int rotationOffset = placedObjectTypeSO.GetRotationOffset(dir);
-                        //places the object in each spot it will take up
-                        Vector3 placedObjectWorldPosition = grid.GetWorldPosition(x, y) + new Vector3(rotationOffset.x, rotationOffset.y) * grid.GetCellSize();
-
-                        //creates the object in the grid
-                        PlacedObject placedObject = PlacedObject.Create(placedObjectWorldPosition, new Vector2Int(x,y), dir, placedObjectTypeSO);
-                        //chages its rotation
-                        placedObject.transform.rotation = Quaternion.Euler(0, 0, -placedObjectTypeSO.GetRotationAngle(dir));
-                        
-                        //Changes the value of the grid to placed object
-                        foreach(Vector2Int gridPosition in gridPositionList) {
-                            grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(placedObject);
-                            pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsWalkable(false);
-                            pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsBreakable(true);
+                        //Checks if the player is trying to build on top of an enemy
+                        foreach (Vector2Int gridPosition in gridPositionList) {
+                            foreach(GameObject enemy in enemyGameObjects) {
+                                if (grid.GetGridObject(gridPosition.x, gridPosition.y) == grid.GetGridObject(new Vector3(enemy.transform.position.x, enemy.transform.position.y, enemy.transform.position.z))) {
+                                    canBuild = false;
+                                    break;
+                                }
+                            }
                         }
-                        pathfindingManager.setPath = true;
+                        //checks if the player has enough resources to place
+                        if(placedObjectTypeSO.ironCost >= materialManager.ironCount || placedObjectTypeSO.copperCost >= materialManager.copperCount){
+                            canBuild = false;
+                        }
+
+                        //checks if the player can build
+                        if (canBuild) {
+                            materialManager.ironCount = materialManager.ironCount - placedObjectTypeSO.ironCost; materialManager.copperCount = materialManager.copperCount - placedObjectTypeSO.copperCost;
+                            //Establishes the rotation ofset you would need to place the object correctly
+                            Vector2Int rotationOffset = placedObjectTypeSO.GetRotationOffset(dir);
+                            //places the object in each spot it will take up
+                            Vector3 placedObjectWorldPosition = grid.GetWorldPosition(x, y) + new Vector3(rotationOffset.x, rotationOffset.y) * grid.GetCellSize();
+
+                            //creates the object in the grid
+                            PlacedObject placedObject = PlacedObject.Create(placedObjectWorldPosition, new Vector2Int(x,y), dir, placedObjectTypeSO);
+                            //chages its rotation
+                            placedObject.transform.rotation = Quaternion.Euler(0, 0, -placedObjectTypeSO.GetRotationAngle(dir));
+                            
+                            //Changes the value of the grid to placed object
+                            foreach(Vector2Int gridPosition in gridPositionList) {
+                                grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(placedObject);
+                                pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsWalkable(false);
+                                pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsBreakable(true);
+                            }
+                            pathfindingManager.setPath = true;
+                        }
+                        //If player cant build creates text to tell them 
+                        else {
+                            UtilsClass.CreateWorldTextPopup("Cannot build here!", UtilsClass.GetMouseWorldPosition());
+                        }
                     }
-                    //If player cant build creates text to tell them 
                     else {
                         UtilsClass.CreateWorldTextPopup("Cannot build here!", UtilsClass.GetMouseWorldPosition());
                     }
-                }
-                else {
-                    UtilsClass.CreateWorldTextPopup("Cannot build here!", UtilsClass.GetMouseWorldPosition());
                 }
             }
 

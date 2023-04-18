@@ -47,19 +47,13 @@ public class ShowResourceCost : MonoBehaviour {
         List<TMP_Text> listOfMaterialCosts = new List<TMP_Text>();
         if(placedObjectTypeSO.ironCost > 0) {
             resourceNum = resourceNum + 1;
-            listOfMaterialCosts.Add(ironText);
-        }
-        else {
-            listOfMaterialCosts.Add(ironText);
         }
         if(placedObjectTypeSO.copperCost > 0) {
             resourceNum = resourceNum + 1;
-            listOfMaterialCosts.Add(copperText);
-        }
-        else {
-            listOfMaterialCosts.Add(copperText);
         }
 
+        listOfMaterialCosts.Add(ironText);
+        listOfMaterialCosts.Add(copperText);
         return listOfMaterialCosts;
     }
 
@@ -85,10 +79,10 @@ public class ShowResourceCost : MonoBehaviour {
             gameHolder.transform.parent.gameObject.SetActive(true);
             if(listOfMaterialCosts[i].text == "0") {
                 numOfHiddenResources = numOfHiddenResources + 1;
+                gameHolder.transform.parent.gameObject.SetActive(false);
             }
             if(numOfHiddenResources > 0) {
                 gameHolder.transform.parent.GetComponent<RectTransform>().anchoredPosition = listOfMaterialCosts[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(-32.4f, 13 * numOfHiddenResources);
-                gameHolder.transform.parent.gameObject.SetActive(false);
             }
         }
     }

@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour {
     private void Update() {
         MouseHoveringShowResourceCost();
     }
-
+    //Function to check if mouse is over the UI with ignores
     public bool IsMouseOverUI() {
         PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
         pointerEventData.position = Input.mousePosition;
