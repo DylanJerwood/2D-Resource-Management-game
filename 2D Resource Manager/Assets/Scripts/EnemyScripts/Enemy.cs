@@ -23,7 +23,8 @@ public class Enemy : MonoBehaviour
         HandleMovement();
         //if setPath becomes true then it will recalculate a new path
         if(setPath == true) {
-            SetTargetPosition(new Vector3(-3, -3, 0));
+            GameObject closestCore = FindClosestObjectWithTag("Core");
+            SetTargetPosition(closestCore.transform.position);
             setPath = false;
         }
         //Debug tool to move the enemy objects as i see fit
@@ -78,5 +79,25 @@ public class Enemy : MonoBehaviour
             //removes the starting position from the list as it doesnt need to get there
             pathVectorList.RemoveAt(0);
         }
+    }
+    //function to get closest gameObject with a certain tag
+    private GameObject FindClosestObjectWithTag(string tag) {
+        GameObject[] listOfGameObjects = GameObject.FindGameObjectsWithTag(tag);
+        float shortestDistance = Mathf.Infinity;
+        GameObject nearestGameObject = null;
+
+        foreach(GameObject Object in listOfGameObjects){
+            float distanceToObject = Vector3.Distance(gameObject.transform.position, Object.transform.position);
+            if (distanceToObject < shortestDistance) {
+                shortestDistance = distanceToObject;
+                nearestGameObject = Object;
+            }
+        }
+        
+        if(nearestGameObject != null) {
+            return nearestGameObject;
+        }
+
+        return null;
     }
 }

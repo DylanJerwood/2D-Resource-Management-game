@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - BuiltObjects
+  - Core
   layers:
   - Default
   - TransparentFX

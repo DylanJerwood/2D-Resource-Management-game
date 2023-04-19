@@ -17,7 +17,7 @@ public class Pathfinding {
     //Function to create the gird itself
     public Pathfinding(int width, int height) {
         Instance = this;
-        grid = new Grid<PathNode>(width, height, 1f, new Vector3(-100, -100, 0), (Grid<PathNode> g, int x, int y) => new PathNode(g, x, y), false);
+        grid = new Grid<PathNode>(width, height, 1f, new Vector3(-100, -100, 0), (Grid<PathNode> g, int x, int y) => new PathNode(g, x, y),false);
     }
     //Function to get the grid list
     public Grid<PathNode> GetGrid() {
@@ -172,13 +172,21 @@ public class Pathfinding {
         for (int i = 0; i < path.Count; i++) {
             //it checks if the node is breakable(if it is it has a building constructed on it)
             if(path[i].isBreakable) {
-                //if it is it then removes the previous endNode
-                path.Remove(endNode);
-                //And changes the endNode to the new pathnode that has the building
-                endNode = path[i];
-                wallNodeFound = true;
-                break;
-                //it does this in order to check if a building is in the path
+                if(path[i] == endNode) {
+                    endNode = path[i];
+                    path.Remove(path[i]);
+                    wallNodeFound = true;
+                    break;
+                }
+                else{
+                    //if it is it then removes the previous endNode
+                    path.Remove(endNode);
+                    //And changes the endNode to the new pathnode that has the building
+                    endNode = path[i];
+                    wallNodeFound = true;
+                    break;
+                    //it does this in order to check if a building is in the path
+                }
             }
         }
         //if a building/wall was found in the path
@@ -211,7 +219,7 @@ public class Pathfinding {
         PathNode lowestFCostNode = pathNodeList[0];
         for (int i = 1; i < pathNodeList.Count; i++) {
             if(!pathNodeList[i].isWalkable && pathNodeList[i].isBreakable){
-                pathNodeList[i].fCost = pathNodeList[i].fCost + 120;
+                pathNodeList[i].fCost = pathNodeList[i].fCost + 3;
             }
             if (pathNodeList[i].fCost < lowestFCostNode.fCost) {
                 lowestFCostNode = pathNodeList[i];
