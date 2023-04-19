@@ -37,9 +37,9 @@ public class DrillScript : MonoBehaviour
             //gathers List of all the conveyors in a square around the drill
             conveyorList = GetConveyorList();
 
+
             //Changes the conveyor the drill will place the item on to the next conveyor in the list
             if(Time.time > nextItemDelivery) {
-                nextItemDelivery += drillSpeed;
                 if(i < conveyorList.Length) {
                     conveyor = conveyorList[i];
                     i++;
@@ -76,6 +76,7 @@ public class DrillScript : MonoBehaviour
                 }
                 //If there has been a free space detected then it will palce an item on the conveyor and change its item variable to the item it placed on the conveyor
                 if(freeSpace == true) {
+                    conveyor.isSpaceTaken = true;
                     itemPosition = conveyor.transform.GetChild(1).gameObject;
                     position = new Vector3(itemPosition.transform.position.x, itemPosition.transform.position.y, itemPosition.transform.position.z);
                     item =  Instantiate(drillItem[drillItemIndex], position, Quaternion.identity);
@@ -83,6 +84,7 @@ public class DrillScript : MonoBehaviour
                     conveyor.conveyorItem = item;
                     item.transform.parent = conveyor.transform;
                 }
+                nextItemDelivery += drillSpeed;
             }
         }
     }
@@ -139,13 +141,15 @@ public class DrillScript : MonoBehaviour
                 }
             }
         }
-        if(numOfCopper >= numOfIron) {
-            drillItemIndex = 1;
-            drillSpeed = timeTakenTillMine / numOfCopper;
-        }
-        else{
-            drillItemIndex = 0;
-            drillSpeed = timeTakenTillMine / numOfIron;
+        if(numOfCopper > 0 || numOfIron > 0){
+            if(numOfCopper >= numOfIron) {
+                drillItemIndex = 1;
+                drillSpeed = timeTakenTillMine / numOfCopper;
+            }
+            else{
+                drillItemIndex = 0;
+                drillSpeed = timeTakenTillMine / numOfIron;
+            }            
         }
     }
 
