@@ -11,6 +11,8 @@ public class playerMovement : MonoBehaviour
     Vector2 movement;
     public Camera Camera;
 
+    private float currentGameSpeed = 1;
+
 
     void FixedUpdate()
     {
@@ -25,6 +27,13 @@ public class playerMovement : MonoBehaviour
         //Execute player movement
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
         HandleZoom();
+
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            ChangeGameSpeed();
+            Debug.Log(currentGameSpeed);
+        }
+
     }
 
 
@@ -54,5 +63,21 @@ public class playerMovement : MonoBehaviour
                 Camera.orthographicSize++;
             }
         }
+    }
+
+    private void ChangeGameSpeed() {
+        if(currentGameSpeed == 1) {
+            currentGameSpeed = 1.5f;
+        }
+        else if(currentGameSpeed == 1.5f) {
+            currentGameSpeed = 2;
+        }
+        else if(currentGameSpeed == 2) {
+            currentGameSpeed = 2.5f;
+        }
+        else if(currentGameSpeed == 2.5f) {
+            currentGameSpeed = 1;
+        }
+        Time.timeScale = currentGameSpeed;
     }
 }
