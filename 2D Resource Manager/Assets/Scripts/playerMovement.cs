@@ -11,6 +11,7 @@ public class playerMovement : MonoBehaviour
     Vector2 movement;
     public Camera Camera;
 
+    public int currentGameSpeedSetting = 1;
     private float currentGameSpeed = 1;
 
 
@@ -68,15 +69,19 @@ public class playerMovement : MonoBehaviour
     private void ChangeGameSpeed() {
         if(currentGameSpeed == 1) {
             currentGameSpeed = 1.5f;
+            currentGameSpeedSetting = 2;
         }
         else if(currentGameSpeed == 1.5f) {
             currentGameSpeed = 2;
+            currentGameSpeedSetting = 3;
         }
         else if(currentGameSpeed == 2) {
             currentGameSpeed = 2.5f;
+            currentGameSpeedSetting = 4;
         }
         else if(currentGameSpeed == 2.5f) {
             currentGameSpeed = 1;
+            currentGameSpeedSetting = 1;
         }
         Time.timeScale = currentGameSpeed;
     }

@@ -218,9 +218,6 @@ public class Pathfinding {
     private PathNode GetLowestFCostNode(List<PathNode> pathNodeList) {
         PathNode lowestFCostNode = pathNodeList[0];
         for (int i = 1; i < pathNodeList.Count; i++) {
-            if(!pathNodeList[i].isWalkable && pathNodeList[i].isBreakable){
-                pathNodeList[i].fCost = pathNodeList[i].fCost + 3;
-            }
             if (pathNodeList[i].fCost < lowestFCostNode.fCost) {
                 lowestFCostNode = pathNodeList[i];
             }

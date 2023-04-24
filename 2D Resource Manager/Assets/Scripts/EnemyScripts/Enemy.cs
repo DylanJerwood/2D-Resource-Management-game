@@ -23,8 +23,10 @@ public class Enemy : MonoBehaviour
         HandleMovement();
         //if setPath becomes true then it will recalculate a new path
         if(setPath == true) {
-            GameObject closestCore = FindClosestObjectWithTag("Core");
-            SetTargetPosition(closestCore.transform.position);
+            if(GameObject.FindGameObjectsWithTag("Core").Length > 0) {
+                GameObject closestCore = FindClosestObjectWithTag("Core");
+                SetTargetPosition(closestCore.transform.position);
+            }
             setPath = false;
         }
         //Debug tool to move the enemy objects as i see fit

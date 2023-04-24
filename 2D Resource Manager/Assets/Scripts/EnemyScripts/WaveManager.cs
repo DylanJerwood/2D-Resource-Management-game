@@ -8,8 +8,8 @@ public class WaveManager : MonoBehaviour {
     public float timeBetweenWaves;
     public GameObject enemy;
 
-    private int wavesPassed;
-    private float nextSpawnTime;
+    public int wavesPassed;
+    public float nextSpawnTime;
     private Vector2 spawnOrigin;
 
     private void Awake() {

@@ -8,6 +8,7 @@ TagManager:
   - BuiltObjects
   - Core
   - EnemySpawn
+  - WaveManager
   layers:
   - Default
   - TransparentFX
