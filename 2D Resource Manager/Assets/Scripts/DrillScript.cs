@@ -29,6 +29,7 @@ public class DrillScript : MonoBehaviour
 
     private void Awake() {
         DetectMaterial();
+        nextItemDelivery = Time.time + drillSpeed;
     }
 
     private void Update() {
