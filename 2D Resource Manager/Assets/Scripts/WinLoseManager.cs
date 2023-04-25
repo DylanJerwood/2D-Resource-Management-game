@@ -7,8 +7,7 @@ public class WinLoseManager : MonoBehaviour {
     public TMP_Text WLtext;
     public GameObject canvas;
 
-    private WaveUI WaveUI;
-    private GameObject[] coreList;
+    public WaveUI WaveUI;
 
     private void Start() {
         canvas.SetActive(false);

@@ -18,19 +18,21 @@ public class WaveManager : MonoBehaviour {
     }
 
     private void Update() {
-        if(Time.time > nextSpawnTime) {
-            if(wavesPassed < numOfWaves) {
-                for (int i = 0; i < NumOfEnemiesSpawned(); i++) {
-                    Vector2 spawnLocation = spawnOrigin + Random.insideUnitCircle * 10;
-                    // Debug.Log(spawnLocation);
-                    Instantiate(enemy, spawnLocation, Quaternion.identity);
+        if(wavesPassed < numOfWaves) {
+            if(Time.time > nextSpawnTime) {
+                if(wavesPassed < numOfWaves) {
+                    for (int i = 0; i < NumOfEnemiesSpawned(); i++) {
+                        Vector2 spawnLocation = spawnOrigin + Random.insideUnitCircle * 10;
+                        // Debug.Log(spawnLocation);
+                        Instantiate(enemy, spawnLocation, Quaternion.identity);
+                    }
+                    nextSpawnTime += timeBetweenWaves;
+                    wavesPassed++;
                 }
-                nextSpawnTime += timeBetweenWaves;
-                wavesPassed++;
             }
-            else{
-                Destroy(gameObject);
-            }
+        }
+        else{
+            Destroy(gameObject);
         }
     }
 

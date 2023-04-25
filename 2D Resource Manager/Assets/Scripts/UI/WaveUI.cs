@@ -16,15 +16,16 @@ public class WaveUI : MonoBehaviour {
     }
 
     private void Update() {
-        
+        enemiesLeft.text = "Enemies: " + GameObject.FindGameObjectsWithTag("Enemy").Length;
         if(GameObject.FindGameObjectsWithTag("WaveManager").Length == 1) {
             wavesLeft.text = "Wave: " + waveManager.wavesPassed.ToString() + "/" + waveManager.numOfWaves.ToString();
-            enemiesLeft.text = "Enemies: " + GameObject.FindGameObjectsWithTag("Enemy").Length;
             float timeTillNextWaves = waveManager.nextSpawnTime - Time.time;
             if(waveManager.numOfWaves > waveManager.wavesPassed) {
                 timeTillNextWave.text = string.Format("{0:#.00}", timeTillNextWaves);
-                wavesFinished = true;
             }
+        }
+        else {
+            wavesFinished = true;
         }
     }
 }

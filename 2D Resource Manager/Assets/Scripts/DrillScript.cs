@@ -74,7 +74,6 @@ public class DrillScript : MonoBehaviour
                         freeSpace = false;
                     }
                 }
-                Debug.Log(freeSpace);
                 //If there has been a free space detected then it will palce an item on the conveyor and change its item variable to the item it placed on the conveyor
                 if(freeSpace == true) {
                     conveyor.isSpaceTaken = true;
