@@ -21,8 +21,7 @@ public class ShowResourceCost : MonoBehaviour {
         if(setPositions == true) {
             List<TMP_Text> listOfText = ResourceNumCheck();
             ResourceRearange(listOfText);
-            Vector2 positionToMove = GetPositionToMove(resourceNum);
-            resourceWindow.GetComponent<RectTransform>().anchoredPosition = positionToMove;
+            resourceWindow.GetComponent<RectTransform>().anchoredPosition = GetPositionToMove(resourceNum);
             windowBacking.localScale = GetBackingScale();
             setPositions = false;
         }
@@ -58,18 +57,9 @@ public class ShowResourceCost : MonoBehaviour {
     }
 
     private Vector2 GetPositionToMove(int numOfResources) {
-        if(numOfResources == 1) {
-            return new Vector2(0,0);
-        }
-        if(numOfResources == 2) {
-            return new Vector2(0,25);
-        }
-        if(numOfResources == 3) {
-            return new Vector2(0,50);
-        }
-        else {
-            return new Vector2(0,25);
-        }
+        int movementPerResource = 40;
+        int numOfResource = numOfResources - 1;
+        return new Vector2(0, movementPerResource * numOfResource);
     }
 
     private void ResourceRearange(List<TMP_Text> listOfMaterialCosts) {
@@ -82,23 +72,23 @@ public class ShowResourceCost : MonoBehaviour {
                 gameHolder.transform.parent.gameObject.SetActive(false);
             }
             if(numOfHiddenResources > 0) {
-                gameHolder.transform.parent.GetComponent<RectTransform>().anchoredPosition = listOfMaterialCosts[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(-32.4f, 13 * numOfHiddenResources);
+                gameHolder.transform.parent.GetComponent<RectTransform>().anchoredPosition = listOfMaterialCosts[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(-32.4f, 10 * numOfHiddenResources);
             }
         }
     }
 
     private void ResetPositions() {
-        ironText.gameObject.transform.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(11, -11);
-        copperText.gameObject.transform.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(11, -11);
+        ironText.gameObject.transform.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        copperText.gameObject.transform.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
     }
 
     private Vector3 GetBackingScale() {
         if(resourceNum == 1) {
-            return new Vector3(windowBacking.localScale.x ,1.01f ,windowBacking.localScale.z);
+            return new Vector3(windowBacking.localScale.x ,1 ,windowBacking.localScale.z);
         }
         if(resourceNum == 2) {
-            return new Vector3(windowBacking.localScale.z ,1.45f ,windowBacking.localScale.z);
+            return new Vector3(windowBacking.localScale.z ,1.4f ,windowBacking.localScale.z);
         }
-        return new Vector3(windowBacking.localScale.x ,1.01f ,windowBacking.localScale.z);
+        return new Vector3(windowBacking.localScale.x ,1 ,windowBacking.localScale.z);
     }
 }
