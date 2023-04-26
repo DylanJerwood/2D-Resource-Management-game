@@ -9,7 +9,7 @@ public class WinLoseManager : MonoBehaviour {
 
     public WaveUI WaveUI;
 
-    private void Start() {
+    private void Awake() {
         canvas.SetActive(false);
     }
 

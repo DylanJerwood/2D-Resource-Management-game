@@ -26,7 +26,7 @@ public class Turret : MonoBehaviour
     public Transform firePoint2;
 
     
-    private void Start() {
+    private void Awake() {
         //Every .5 seconds it calles the UpdateTarget in order to look for a target 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }

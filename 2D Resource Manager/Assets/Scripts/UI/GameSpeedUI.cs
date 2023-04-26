@@ -11,7 +11,7 @@ public class GameSpeedUI : MonoBehaviour {
 
     private playerMovement playerMovement;
 
-    private void Start() {
+    private void Awake() {
         playerMovement = GameObject.Find("Player").GetComponent<playerMovement>();
     }
 

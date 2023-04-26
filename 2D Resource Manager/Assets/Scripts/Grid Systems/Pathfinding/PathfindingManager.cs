@@ -8,7 +8,7 @@ public class PathfindingManager : MonoBehaviour {
     //variable to create a new path, will be used when the surrounding objects change
     public bool setPath;
 
-    private void Start() {
+    private void Awake() {
         //Creates the grid
        pathfinding = new Pathfinding(100,100);
         //Tells the pathfinding agents to calculate a path

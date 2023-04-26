@@ -10,7 +10,7 @@ public class WaveUI : MonoBehaviour {
     public bool wavesFinished;
     private WaveManager waveManager;
 
-    private void Start() {
+    private void Awake() {
         waveManager = GameObject.Find("WaveManager").GetComponent<WaveManager>();
         wavesFinished = false; 
     }

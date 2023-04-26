@@ -244,10 +244,10 @@ public class GridBuildingSystem : MonoBehaviour
     public void ObjectDestroyed(Vector3 objectPosition) {
         GridObject gridObject = grid.GetGridObject(objectPosition);
         PlacedObject placedObject = gridObject.GetPlacedObject();
-        
+        List<Vector2Int> gridPositionList = placedObject.GetGridPositionList();
+            
         placedObject.DestroySelf();
 
-        List<Vector2Int> gridPositionList = placedObject.GetGridPositionList();
 
         foreach(Vector2Int gridPosition in gridPositionList) {
             grid.GetGridObject(gridPosition.x, gridPosition.y).ClearPlacedObject();

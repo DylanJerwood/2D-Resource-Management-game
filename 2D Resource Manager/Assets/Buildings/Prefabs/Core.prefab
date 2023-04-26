@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a2117e4143d7e4c95e462539cdbd4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placedObjectTypeSO: {fileID: 0}
+  placedObjectTypeSO: {fileID: 11400000, guid: 9eb1deff750402c45ae9b657c157fc95, type: 2}
 --- !u!114 &3934354335119871049
 MonoBehaviour:
   m_ObjectHideFlags: 0

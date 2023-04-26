@@ -8,7 +8,7 @@ public class CoreScript : MonoBehaviour {
     private GridBuildingSystem gridBuildingSystem;
     private MaterialManager materialManager;
     
-    private void Start() {
+    private void Awake() {
         gridBuildingSystem = GameObject.Find("GridBuildingSystem").GetComponent<GridBuildingSystem>();
         materialManager = GameObject.Find("MaterialManager").GetComponent<MaterialManager>();
     }

@@ -13,7 +13,7 @@ public class MenuButtons : MonoBehaviour
     public List<GameObject> menuList;
 
 
-    private void Start()
+    private void Awake()
     {
         gridBuildingSystem = GBS.GetComponent<GridBuildingSystem>();
         buildingGhost = ghost.GetComponent<BuildingGhost>();
