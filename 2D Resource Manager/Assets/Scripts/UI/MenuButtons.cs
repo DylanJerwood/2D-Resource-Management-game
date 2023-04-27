@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
@@ -157,6 +158,10 @@ public class MenuButtons : MonoBehaviour
         Destroy(buildingGhost.indicator);  
         buildingGhost.visual = buildingGhost.visualsList[buttonNum];  
         buildingGhost.createPlacementIndicator = true;
+    }
+    public void ResetButton()
+    {
+        SceneManager.LoadScene(0);
     }
 }
 

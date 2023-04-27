@@ -245,8 +245,6 @@ public class GridBuildingSystem : MonoBehaviour
         GridObject gridObject = grid.GetGridObject(objectPosition);
         PlacedObject placedObject = gridObject.GetPlacedObject();
         List<Vector2Int> gridPositionList = placedObject.GetGridPositionList();
-            
-        placedObject.DestroySelf();
 
 
         foreach(Vector2Int gridPosition in gridPositionList) {
@@ -254,6 +252,8 @@ public class GridBuildingSystem : MonoBehaviour
             pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsWalkable(true);
             pathfindingManager.pathfinding.GetNode(gridPosition.x,gridPosition.y).SetIsBreakable(false);
         }
+        placedObject.DestroySelf();
+        pathfindingManager.setPath = true;
     }
 
     public void PlaceObjectOnAwake(PlacedObjectTypeSO objectToPlace, Vector3 positionToPlace) {

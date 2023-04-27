@@ -366,7 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a2117e4143d7e4c95e462539cdbd4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placedObjectTypeSO: {fileID: 11400000, guid: eccfa3975828e784caf599ed7e6f0cd8, type: 2}
+  placedObjectTypeSO: {fileID: 0}
 --- !u!114 &2990457858006340965
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,12 +17,10 @@ public class WinLoseManager : MonoBehaviour {
         if(GameObject.FindGameObjectsWithTag("Core").Length == 0) {
             WLtext.text = "YOU LOSE!!";
             canvas.SetActive(true);
-            Time.timeScale = 0;
         }
         if(WaveUI.wavesFinished == true && GameObject.FindGameObjectsWithTag("Enemy").Length == 0) {
             WLtext.text = "YOU WIN!!";
             canvas.SetActive(true);
-            Time.timeScale = 0;
         }
     }
 }

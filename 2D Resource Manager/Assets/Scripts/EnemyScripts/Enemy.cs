@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
             //it then gets a target position from the list
             Vector3 targetPosition = pathVectorList[currentPathIndex];
             //then while the object is not within a distance of 0.01
-            if (Vector3.Distance(transform.position, targetPosition) > 0.01f) {
+            if (Vector3.Distance(transform.position, targetPosition) > 0.1f) {
                 //it gets a direction it needs to move in
                 Vector3 moveDir = (targetPosition - transform.position).normalized;
 

@@ -26,6 +26,7 @@ public class WaveManager : MonoBehaviour {
                         // Debug.Log(spawnLocation);
                         Instantiate(enemy, spawnLocation, Quaternion.identity);
                     }
+                    timeBetweenWaves = timeBetweenWaves - timeBetweenWaves / 5;
                     nextSpawnTime += timeBetweenWaves;
                     wavesPassed++;
                 }

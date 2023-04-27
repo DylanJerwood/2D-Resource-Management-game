@@ -62,8 +62,8 @@ public class Conveyor : MonoBehaviour
             }
 
             isSpaceTaken = false;
-            conveyorInSequence.conveyorItem = conveyorItem;
             conveyorItem.transform.parent = conveyorInSequence.transform;
+            conveyorInSequence.conveyorItem = conveyorItem;
             conveyorItem = null;
         }
     }
