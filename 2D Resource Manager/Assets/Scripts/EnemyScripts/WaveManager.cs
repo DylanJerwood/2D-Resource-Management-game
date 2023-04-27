@@ -21,6 +21,10 @@ public class WaveManager : MonoBehaviour {
         if(wavesPassed < numOfWaves) {
             if(Time.time > nextSpawnTime) {
                 if(wavesPassed < numOfWaves) {
+                    wavesPassed++;
+                    if(wavesPassed%2==0 && wavesPassed != 0) {
+                        difficulty++;
+                    }
                     for (int i = 0; i < NumOfEnemiesSpawned(); i++) {
                         Vector2 spawnLocation = spawnOrigin + Random.insideUnitCircle * 10;
                         // Debug.Log(spawnLocation);
@@ -28,7 +32,6 @@ public class WaveManager : MonoBehaviour {
                     }
                     timeBetweenWaves = timeBetweenWaves - timeBetweenWaves / 5;
                     nextSpawnTime += timeBetweenWaves;
-                    wavesPassed++;
                 }
             }
         }
