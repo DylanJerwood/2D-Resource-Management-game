@@ -20,7 +20,7 @@ public class BuildingHealth : MonoBehaviour
     {
         if(health <= 0) {
             gridBuildingSystem.ObjectDestroyed(objectPosition);
-            
+            Destroy(gameObject);
         }
     }
 }

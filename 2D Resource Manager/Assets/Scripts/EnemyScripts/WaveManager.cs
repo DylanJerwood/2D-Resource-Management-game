@@ -19,10 +19,10 @@ public class WaveManager : MonoBehaviour {
 
     private void Update() {
         if(wavesPassed < numOfWaves) {
-            if(Time.time > nextSpawnTime) {
+            if(Time.timeSinceLevelLoad > nextSpawnTime) {
                 if(wavesPassed < numOfWaves) {
                     wavesPassed++;
-                    if(wavesPassed%2==0 && wavesPassed != 0) {
+                    if(wavesPassed%2==0 && wavesPassed != 0 && difficulty != 5) {
                         difficulty++;
                     }
                     for (int i = 0; i < NumOfEnemiesSpawned(); i++) {

@@ -19,7 +19,7 @@ public class WaveUI : MonoBehaviour {
         enemiesLeft.text = "Enemies: " + GameObject.FindGameObjectsWithTag("Enemy").Length;
         if(GameObject.FindGameObjectsWithTag("WaveManager").Length == 1) {
             wavesLeft.text = "Wave: " + waveManager.wavesPassed.ToString() + "/" + waveManager.numOfWaves.ToString();
-            float timeTillNextWaves = waveManager.nextSpawnTime - Time.time;
+            float timeTillNextWaves = waveManager.nextSpawnTime - Time.timeSinceLevelLoad;
             if(waveManager.numOfWaves > waveManager.wavesPassed) {
                 timeTillNextWave.text = string.Format("{0:#.00}", timeTillNextWaves);
             }
