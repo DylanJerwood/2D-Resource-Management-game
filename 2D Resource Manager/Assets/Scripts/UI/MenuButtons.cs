@@ -11,6 +11,8 @@ public class MenuButtons : MonoBehaviour
     public GameObject ghost;
     private BuildingGhost buildingGhost;
 
+    public GameObject ControlsWindow;
+
     public List<GameObject> menuList;
 
 
@@ -159,9 +161,17 @@ public class MenuButtons : MonoBehaviour
         buildingGhost.visual = buildingGhost.visualsList[buttonNum];  
         buildingGhost.createPlacementIndicator = true;
     }
-    public void ResetButton()
+    private void ResetButton()
     {
         SceneManager.LoadScene(0);
+    }
+    private void ControlsWindowButton() {
+        if(ControlsWindow.activeInHierarchy) {
+            ControlsWindow.SetActive(false);
+        }
+        else if(!ControlsWindow.activeInHierarchy) {
+            ControlsWindow.SetActive(true);
+        }
     }
 }
 
