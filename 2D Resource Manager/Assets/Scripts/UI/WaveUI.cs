@@ -28,4 +28,8 @@ public class WaveUI : MonoBehaviour {
             wavesFinished = true;
         }
     }
+    
+    private void SkipToNextWave(){
+        waveManager.nextSpawnTime = Time.timeSinceLevelLoad;
+    }
 }
